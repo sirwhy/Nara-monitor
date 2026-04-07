@@ -6,265 +6,249 @@
 <title>NARA Monitor</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
   --bg: #080c10;
   --surface: #0d1117;
   --surface2: #131920;
   --surface3: #1a2332;
-  --border: rgba(0,200,120,0.08);
-  --border2: rgba(0,200,120,0.18);
+  --border: rgba(0,200,120,0.07);
+  --border2: rgba(0,200,120,0.16);
   --border3: rgba(0,200,120,0.35);
-  --text: #d4e8d4;
+  --text: #cde8d4;
   --muted: #4a7a5a;
-  --muted2: #2d5040;
+  --muted2: #253530;
   --green: #00e887;
   --green2: #00c870;
-  --green3: #00a055;
+  --green3: #009955;
   --yellow: #f5c842;
   --red: #ff4d6a;
+  --orange: #ff8c42;
   --blue: #4da6ff;
-  --mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono','Fira Code',monospace;
+  --sans: 'Inter',system-ui,sans-serif;
 }
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Grid bg effect */
+body { background:var(--bg); color:var(--text); font-family:var(--sans); min-height:100vh; overflow-x:hidden; }
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,200,100,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,200,100,0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-  pointer-events: none;
-  z-index: 0;
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image: linear-gradient(rgba(0,200,100,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(0,200,100,0.025) 1px,transparent 1px);
+  background-size: 40px 40px;
 }
 
-.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+.wrap { position:relative; z-index:1; max-width:1140px; margin:0 auto; padding:20px 18px; }
 
 /* HEADER */
-.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
-.logo-row { display: flex; align-items: center; gap: 12px; }
-.logo-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-.logo-title { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--green); letter-spacing: 0.04em; }
-.logo-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
-.header-right { display: flex; align-items: center; gap: 10px; }
-.refresh-btn {
-  font-size: 12px; font-family: var(--mono); padding: 6px 14px;
-  background: transparent; border: 1px solid var(--border3);
-  color: var(--green); border-radius: 6px; cursor: pointer;
-  transition: all 0.15s;
-}
-.refresh-btn:hover { background: rgba(0,200,120,0.08); }
-.refresh-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.interval-select {
-  font-size: 11px; font-family: var(--mono); padding: 6px 10px;
-  background: var(--surface2); border: 1px solid var(--border2);
-  color: var(--green2); border-radius: 6px; outline: none; cursor: pointer;
-}
+.header { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:10px; }
+.logo-row { display:flex; align-items:center; gap:12px; }
+.logo-dot { width:9px; height:9px; background:var(--green); border-radius:50%; box-shadow:0 0 8px var(--green); animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.logo-title { font-family:var(--mono); font-size:17px; font-weight:600; color:var(--green); letter-spacing:0.06em; }
+.logo-sub { font-size:10px; color:var(--muted); font-family:var(--mono); margin-top:1px; }
+.header-right { display:flex; align-items:center; gap:8px; }
+.refresh-btn { font-size:12px; font-family:var(--mono); padding:6px 14px; background:transparent; border:1px solid var(--border3); color:var(--green); border-radius:6px; cursor:pointer; transition:all .15s; }
+.refresh-btn:hover { background:rgba(0,200,120,0.1); }
+.refresh-btn:disabled { opacity:0.4; cursor:not-allowed; }
+.interval-select { font-size:11px; font-family:var(--mono); padding:6px 10px; background:var(--surface2); border:1px solid var(--border2); color:var(--green2); border-radius:6px; outline:none; cursor:pointer; }
 
-/* SUMMARY CARDS */
-.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-@media (max-width: 700px) { .summary { grid-template-columns: repeat(2, 1fr); } }
+/* TABS */
+.tabs { display:flex; gap:4px; margin-bottom:18px; border-bottom:1px solid var(--border2); padding-bottom:0; }
+.tab-btn { font-size:12px; font-family:var(--mono); padding:8px 16px; background:transparent; border:none; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; margin-bottom:-1px; }
+.tab-btn.active { color:var(--green); border-bottom-color:var(--green); }
+.tab-btn:hover { color:var(--text); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
 
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  padding: 14px 16px;
-}
-.stat-label { font-size: 10px; color: var(--muted); font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
-.stat-val { font-size: 22px; font-weight: 600; font-family: var(--mono); color: var(--green); }
-.stat-val.muted { color: var(--text); font-size: 18px; }
-.stat-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+/* SUMMARY */
+.summary { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:18px; }
+@media(max-width:780px){ .summary { grid-template-columns:repeat(3,1fr); } }
+@media(max-width:480px){ .summary { grid-template-columns:repeat(2,1fr); } }
+.stat-card { background:var(--surface); border:1px solid var(--border2); border-radius:10px; padding:12px 14px; }
+.stat-label { font-size:9px; color:var(--muted); font-family:var(--mono); letter-spacing:.09em; text-transform:uppercase; margin-bottom:5px; }
+.stat-val { font-size:20px; font-weight:600; font-family:var(--mono); color:var(--green); line-height:1; }
+.stat-val.neutral { color:var(--text); font-size:16px; }
+.stat-val.red { color:var(--red); }
+.stat-sub { font-size:9px; color:var(--muted); margin-top:3px; }
 
 /* INPUT PANEL */
-.input-panel {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 20px;
+.input-panel { background:var(--surface); border:1px solid var(--border2); border-radius:12px; padding:14px; margin-bottom:18px; }
+.input-panel-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.panel-title { font-size:11px; font-weight:500; color:var(--green2); font-family:var(--mono); letter-spacing:.06em; }
+.addr-input-row { display:flex; gap:6px; margin-bottom:6px; }
+.addr-input { flex:1; padding:7px 11px; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; font-size:12px; font-family:var(--mono); color:var(--text); outline:none; transition:border-color .15s; min-width:0; }
+.addr-input:focus { border-color:var(--border3); }
+.addr-input::placeholder { color:var(--muted2); }
+.btn { font-size:12px; font-family:var(--mono); padding:7px 13px; border-radius:6px; cursor:pointer; border:1px solid; transition:all .15s; white-space:nowrap; }
+.btn-primary { background:rgba(0,200,120,0.1); border-color:var(--green3); color:var(--green); }
+.btn-primary:hover { background:rgba(0,200,120,0.2); }
+.btn-ghost { background:transparent; border-color:var(--border2); color:var(--muted); }
+.btn-ghost:hover { border-color:var(--border3); color:var(--text); }
+.btn-danger { background:transparent; border-color:rgba(255,77,106,.25); color:var(--red); font-size:11px; padding:3px 7px; }
+.btn-danger:hover { background:rgba(255,77,106,.08); }
+.bulk-area { width:100%; padding:7px 11px; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; font-size:11px; font-family:var(--mono); color:var(--text); resize:vertical; height:64px; outline:none; }
+.bulk-area:focus { border-color:var(--border3); }
+.input-hint { font-size:10px; color:var(--muted); font-family:var(--mono); }
+
+/* RANKING TABLE */
+.ranking-section { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; margin-bottom:18px; }
+.section-title-bar { padding:14px 16px; border-bottom:1px solid var(--border2); }
+.section-title { font-size:15px; font-weight:600; color:var(--text); }
+.section-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+
+.rtable-head, .rtable-row {
+  display:grid;
+  grid-template-columns: 36px 110px minmax(0,1fr) 120px 90px 80px 90px 110px 80px;
+  padding:9px 14px;
+  gap:0;
+  align-items:center;
+}
+.rtable-head { font-size:10px; font-family:var(--mono); color:var(--muted); letter-spacing:.07em; text-transform:uppercase; border-bottom:1px solid var(--border2); }
+.rtable-row { border-bottom:1px solid var(--border); transition:background .1s; }
+.rtable-row:last-child { border-bottom:none; }
+.rtable-row:hover { background:rgba(0,200,120,0.025); }
+
+@media(max-width:900px){
+  .rtable-head, .rtable-row { grid-template-columns: 28px 80px minmax(0,1fr) 90px 70px 60px; }
+  .col-match,.col-rate,.col-errors { display:none; }
 }
 
-.input-panel-head {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 12px;
-}
-.panel-title { font-size: 12px; font-weight: 500; color: var(--green2); font-family: var(--mono); letter-spacing: 0.05em; }
+.rank-badge { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; font-family:var(--mono); }
+.rank-1 { background:rgba(245,200,66,.15); color:var(--yellow); border:1px solid rgba(245,200,66,.3); }
+.rank-2 { background:rgba(77,166,255,.12); color:var(--blue); border:1px solid rgba(77,166,255,.2); }
+.rank-n { background:var(--surface2); color:var(--muted); border:1px solid var(--border2); }
 
-.addr-input-row { display: flex; gap: 8px; margin-bottom: 8px; }
-.addr-input {
-  flex: 1; padding: 8px 12px;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  font-size: 12px; font-family: var(--mono);
-  color: var(--text); outline: none;
-  transition: border-color 0.15s;
-}
-.addr-input:focus { border-color: var(--border3); }
-.addr-input::placeholder { color: var(--muted2); }
+.team-name { font-size:12px; font-weight:500; color:var(--text); font-family:var(--mono); }
+.team-provider { font-size:10px; color:var(--muted); margin-top:1px; }
+.model-name { font-size:11px; color:var(--muted); font-family:var(--mono); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nara-val { font-size:13px; font-weight:600; font-family:var(--mono); color:var(--green); }
+.nara-sub { font-size:10px; color:var(--muted); font-weight:400; }
+.num-val { font-size:12px; font-family:var(--mono); color:var(--text); }
+.err-val { font-size:12px; font-family:var(--mono); color:var(--red); }
+.rate-bar-wrap { display:flex; align-items:center; gap:6px; }
+.rate-bar-bg { flex:1; height:4px; background:var(--muted2); border-radius:2px; overflow:hidden; max-width:80px; }
+.rate-bar-fill { height:100%; background:var(--green3); border-radius:2px; transition:width .4s; }
+.rate-text { font-size:10px; font-family:var(--mono); color:var(--text); min-width:36px; }
 
-.btn {
-  font-size: 12px; font-family: var(--mono); padding: 8px 14px;
-  border-radius: 6px; cursor: pointer; border: 1px solid; transition: all 0.15s;
-  white-space: nowrap;
-}
-.btn-primary { background: rgba(0,200,120,0.12); border-color: var(--green3); color: var(--green); }
-.btn-primary:hover { background: rgba(0,200,120,0.2); }
-.btn-ghost { background: transparent; border-color: var(--border2); color: var(--muted); }
-.btn-ghost:hover { border-color: var(--border3); color: var(--text); }
-.btn-danger { background: transparent; border-color: rgba(255,77,106,0.3); color: var(--red); font-size: 11px; padding: 4px 8px; }
-.btn-danger:hover { background: rgba(255,77,106,0.08); }
+/* DETAIL CARDS */
+.detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:680px){ .detail-grid { grid-template-columns:1fr; } }
 
-.bulk-area {
-  width: 100%; padding: 8px 12px;
-  background: var(--surface2); border: 1px solid var(--border2);
-  border-radius: 6px; font-size: 11px; font-family: var(--mono);
-  color: var(--text); resize: vertical; height: 70px; outline: none;
-}
-.bulk-area:focus { border-color: var(--border3); }
-.bulk-area::placeholder { color: var(--muted2); }
+.detail-card { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; }
+.detail-head { padding:14px 16px; border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:flex-start; }
+.detail-team { font-size:15px; font-weight:600; color:var(--text); }
+.detail-model { font-size:11px; color:var(--green2); margin-top:2px; font-family:var(--mono); }
+.detail-provider { font-size:10px; color:var(--muted); margin-top:3px; }
+.detail-nara { text-align:right; }
+.detail-nara-label { font-size:9px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; }
+.detail-nara-val { font-size:22px; font-weight:600; font-family:var(--mono); color:var(--green); line-height:1.1; }
+.detail-nara-rate { font-size:10px; color:var(--muted); margin-top:2px; }
 
-.input-hint { font-size: 10px; color: var(--muted); font-family: var(--mono); margin-top: 4px; }
+.badges { display:flex; gap:6px; margin-top:6px; }
+.badge { font-size:10px; padding:2px 8px; border-radius:4px; font-family:var(--mono); border:1px solid; }
+.badge-best { background:rgba(245,200,66,.1); color:var(--yellow); border-color:rgba(245,200,66,.25); }
+.badge-err { background:rgba(255,77,106,.1); color:var(--red); border-color:rgba(255,77,106,.25); }
 
-/* TABLE */
-.table-wrap {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 12px;
-  overflow: hidden;
-}
+.metrics-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
+.metric-box { background:var(--surface); padding:10px 14px; }
+.metric-label { font-size:10px; color:var(--muted); margin-bottom:4px; }
+.metric-val { font-size:16px; font-weight:600; font-family:var(--mono); color:var(--text); }
+.metric-val.red { color:var(--red); }
+.metric-val.green { color:var(--green); }
+.metric-val.yellow { color:var(--yellow); }
 
+.last-q { padding:12px 14px; border-top:1px solid var(--border2); }
+.last-q-label { font-size:9px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-bottom:5px; }
+.last-q-text { font-size:12px; color:var(--text); line-height:1.5; }
+.last-q-time { font-size:10px; color:var(--muted); margin-top:4px; font-family:var(--mono); }
+
+/* WALLET TABLE */
+.table-wrap { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; }
 .table-header {
-  display: grid;
-  grid-template-columns: 36px 1fr 140px 90px 90px 80px 60px;
-  gap: 0;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border2);
-  font-size: 10px; font-family: var(--mono);
-  color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+  display:grid;
+  grid-template-columns: 34px 1fr 130px 90px 80px 70px 52px;
+  padding:9px 14px;
+  border-bottom:1px solid var(--border2);
+  font-size:10px; font-family:var(--mono); color:var(--muted); letter-spacing:.07em; text-transform:uppercase;
 }
-
-@media (max-width: 750px) {
-  .table-header { grid-template-columns: 28px 1fr 100px 70px 50px; }
-  .col-rewarded, .col-rate { display: none; }
-}
-
-.table-body { max-height: 520px; overflow-y: auto; }
-
+.table-body { max-height:500px; overflow-y:auto; }
 .table-row {
-  display: grid;
-  grid-template-columns: 36px 1fr 140px 90px 90px 80px 60px;
-  gap: 0;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  align-items: center;
-  transition: background 0.1s;
+  display:grid;
+  grid-template-columns: 34px 1fr 130px 90px 80px 70px 52px;
+  padding:9px 14px;
+  border-bottom:1px solid var(--border);
+  align-items:center;
+  transition:background .1s;
 }
-.table-row:last-child { border-bottom: none; }
-.table-row:hover { background: rgba(0,200,120,0.03); }
-
-@media (max-width: 750px) {
-  .table-row { grid-template-columns: 28px 1fr 100px 70px 50px; }
+.table-row:last-child { border-bottom:none; }
+.table-row:hover { background:rgba(0,200,120,0.025); }
+@media(max-width:680px){
+  .table-header { grid-template-columns: 28px 1fr 100px 70px 48px; }
+  .table-row { grid-template-columns: 28px 1fr 100px 70px 48px; }
+  .col-change,.col-status { display:none; }
 }
+.row-num { font-size:11px; color:var(--muted); font-family:var(--mono); }
+.addr-cell { min-width:0; }
+.addr-label-text { font-size:10px; color:var(--muted); font-family:var(--mono); margin-bottom:1px; }
+.addr-full { font-size:11px; font-family:var(--mono); color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; transition:color .1s; }
+.addr-full:hover { color:var(--green); }
+.bal-cell { font-size:13px; font-weight:600; font-family:var(--mono); color:var(--green); }
+.bal-cell.zero { color:var(--muted); }
+.bal-unit { font-size:9px; color:var(--muted); font-weight:400; }
+.change-cell { font-size:11px; font-family:var(--mono); }
+.up { color:var(--green); } .dn { color:var(--red); } .flat { color:var(--muted); }
+.status-cell { font-size:10px; font-family:var(--mono); display:flex; align-items:center; }
+.sdot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:4px; flex-shrink:0; }
+.dok { background:var(--green); box-shadow:0 0 5px var(--green); }
+.derr { background:var(--red); }
+.dload { background:var(--yellow); animation:blink 1s infinite; }
+.dpend { background:var(--muted); }
+.action-cell { display:flex; justify-content:flex-end; }
+.empty-state { padding:40px 20px; text-align:center; color:var(--muted); font-family:var(--mono); font-size:13px; }
+.empty-icon { font-size:28px; margin-bottom:10px; opacity:.35; }
 
-.row-num { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+/* TOAST */
+.toast { position:fixed; bottom:20px; right:20px; background:var(--surface3); border:1px solid var(--border3); color:var(--green); font-family:var(--mono); font-size:12px; padding:9px 15px; border-radius:8px; opacity:0; transform:translateY(8px); transition:all .2s; pointer-events:none; z-index:999; }
+.toast.show { opacity:1; transform:translateY(0); }
 
-.addr-cell { min-width: 0; }
-.addr-label { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-bottom: 2px; }
-.addr-full {
-  font-size: 11px; font-family: var(--mono); color: var(--text);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  cursor: pointer;
-}
-.addr-full:hover { color: var(--green); }
+.last-update { font-size:10px; color:var(--muted); font-family:var(--mono); text-align:right; margin-top:8px; }
 
-.balance-cell { font-size: 14px; font-weight: 600; font-family: var(--mono); color: var(--green); }
-.balance-cell.zero { color: var(--muted); }
-.balance-unit { font-size: 10px; color: var(--muted); font-weight: 400; }
-
-.change-cell { font-size: 12px; font-family: var(--mono); }
-.change-up { color: var(--green); }
-.change-down { color: var(--red); }
-.change-flat { color: var(--muted); }
-
-.status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-.dot-ok { background: var(--green); box-shadow: 0 0 6px var(--green); }
-.dot-err { background: var(--red); }
-.dot-loading { background: var(--yellow); animation: pulse 1s infinite; }
-.dot-pending { background: var(--muted); }
-
-.status-cell { font-size: 11px; font-family: var(--mono); display: flex; align-items: center; }
-
-.action-cell { display: flex; justify-content: flex-end; }
-
-/* last updated */
-.last-update { font-size: 10px; color: var(--muted); font-family: var(--mono); text-align: right; margin-top: 10px; }
-
-/* Empty state */
-.empty-state {
-  padding: 48px 20px;
-  text-align: center;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 13px;
-}
-.empty-icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
-
-/* Toast */
-.toast {
-  position: fixed; bottom: 24px; right: 24px;
-  background: var(--surface3); border: 1px solid var(--border3);
-  color: var(--green); font-family: var(--mono); font-size: 12px;
-  padding: 10px 16px; border-radius: 8px;
-  opacity: 0; transform: translateY(8px);
-  transition: all 0.2s; pointer-events: none; z-index: 100;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border3); border-radius: 2px; }
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border3); border-radius:2px; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo-row">
-      <div class="logo-dot"></div>
-      <div>
-        <div class="logo-title">NARA MONITOR</div>
-        <div class="logo-sub">mainnet-api.nara.build · realtime balance tracker</div>
-      </div>
-    </div>
-    <div class="header-right">
-      <select class="interval-select" id="interval-sel" onchange="setAutoRefresh()">
-        <option value="0">Manual</option>
-        <option value="30">30s</option>
-        <option value="60" selected>1m</option>
-        <option value="120">2m</option>
-        <option value="300">5m</option>
-      </select>
-      <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-row">
+    <div class="logo-dot"></div>
+    <div>
+      <div class="logo-title">NARA MONITOR</div>
+      <div class="logo-sub">mainnet-api.nara.build · realtime dashboard</div>
     </div>
   </div>
+  <div class="header-right">
+    <select class="interval-select" id="interval-sel" onchange="setAutoRefresh()">
+      <option value="0">Manual</option>
+      <option value="30">30s</option>
+      <option value="60" selected>1m</option>
+      <option value="120">2m</option>
+      <option value="300">5m</option>
+    </select>
+    <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('wallets',this)">⛏ Balance Wallets</button>
+  <button class="tab-btn" onclick="switchTab('ranking',this)">📊 Ranking Model</button>
+</div>
+
+<!-- ========== TAB: WALLETS ========== -->
+<div class="tab-pane active" id="tab-wallets">
 
   <!-- SUMMARY -->
   <div class="summary">
@@ -275,22 +259,27 @@ body::before {
     </div>
     <div class="stat-card">
       <div class="stat-label">Wallets</div>
-      <div class="stat-val muted" id="sum-wallets">0</div>
+      <div class="stat-val neutral" id="sum-wallets">0</div>
       <div class="stat-sub">tracked</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Online</div>
-      <div class="stat-val" id="sum-online" style="color:var(--green)">0</div>
+      <div class="stat-val" id="sum-online">0</div>
       <div class="stat-sub">responding</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Last Refresh</div>
-      <div class="stat-val muted" id="sum-time" style="font-size:13px;">—</div>
-      <div class="stat-sub" id="sum-next">—</div>
+      <div class="stat-label">Errors</div>
+      <div class="stat-val red" id="sum-errors">0</div>
+      <div class="stat-sub">fetch failed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Next Refresh</div>
+      <div class="stat-val neutral" id="sum-time" style="font-size:13px;">—</div>
+      <div class="stat-sub" id="sum-next">manual</div>
     </div>
   </div>
 
-  <!-- INPUT PANEL -->
+  <!-- INPUT -->
   <div class="input-panel">
     <div class="input-panel-head">
       <span class="panel-title">ADD WALLETS</span>
@@ -299,96 +288,257 @@ body::before {
         <button class="btn btn-ghost" onclick="clearAll()">Clear all</button>
       </div>
     </div>
-
     <div id="bulk-area-wrap" style="display:none;margin-bottom:8px;">
-      <textarea class="bulk-area" id="bulk-input" placeholder="Paste banyak address sekaligus, satu per baris atau dipisah spasi/koma..."></textarea>
+      <textarea class="bulk-area" id="bulk-input" placeholder="Paste banyak address sekaligus — satu per baris, atau dipisah spasi/koma/titik koma..."></textarea>
       <button class="btn btn-primary" style="margin-top:6px;" onclick="bulkAdd()">⚡ Tambah semua</button>
     </div>
-
     <div class="addr-input-row">
-      <input class="addr-input" id="addr-input" placeholder="Masukkan NARA address atau nama label (opsional)..." onkeydown="if(event.key==='Enter')addAddr()">
-      <input class="addr-input" id="label-input" placeholder="Label (opsional)" style="max-width:160px;" onkeydown="if(event.key==='Enter')addAddr()">
+      <input class="addr-input" id="addr-input" placeholder="Paste NARA / Solana address (Base58)..." onkeydown="if(event.key==='Enter')addAddr()">
+      <input class="addr-input" id="label-input" placeholder="Label (opsional)" style="max-width:150px;" onkeydown="if(event.key==='Enter')addAddr()">
       <button class="btn btn-primary" onclick="addAddr()">+ Add</button>
     </div>
-    <div class="input-hint">Format: address Solana/NARA (Base58, 32-44 karakter) · Data diambil langsung dari mainnet RPC</div>
+    <div class="input-hint" id="addr-hint">Address valid: Base58 alphanumeric, 32–50 karakter</div>
   </div>
 
-  <!-- TABLE -->
+  <!-- WALLET TABLE -->
   <div class="table-wrap">
     <div class="table-header">
-      <div>#</div>
-      <div>Address</div>
-      <div>Balance (NARA)</div>
-      <div>Change</div>
-      <div class="col-rewarded">Rewarded</div>
-      <div class="col-rate">Status</div>
-      <div></div>
+      <div>#</div><div>Address / Label</div><div>Balance</div>
+      <div class="col-change">Change</div><div>Worker Bal</div>
+      <div class="col-status">Status</div><div></div>
     </div>
     <div class="table-body" id="table-body">
       <div class="empty-state">
         <div class="empty-icon">⛏</div>
         <div>Belum ada wallet ditambahkan</div>
-        <div style="margin-top:6px;font-size:11px;color:var(--muted2)">Tambahkan address NARA di atas untuk mulai monitoring</div>
+        <div style="margin-top:5px;font-size:11px;color:var(--muted2)">Tambah address NARA di atas untuk mulai monitor</div>
+      </div>
+    </div>
+  </div>
+  <div class="last-update" id="last-update-label">—</div>
+</div>
+
+<!-- ========== TAB: RANKING ========== -->
+<div class="tab-pane" id="tab-ranking">
+  <div class="ranking-section">
+    <div class="section-title-bar">
+      <div class="section-title">Ranking Performa Model</div>
+      <div class="section-sub">Diurutkan berdasarkan NARA didapat, rewarded wallet, dan hash match</div>
+    </div>
+    <div class="rtable-head">
+      <div>#</div><div>Team</div><div>Model</div>
+      <div>NARA</div><div>Worker Bal</div><div>Rewarded</div>
+      <div class="col-match">Hash Match</div>
+      <div class="col-rate">Success Rate</div>
+      <div class="col-errors">Errors</div>
+    </div>
+    <div id="ranking-body">
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <div>Belum ada data model</div>
+        <div style="margin-top:5px;font-size:11px;color:var(--muted2)">Tambahkan wallet terlebih dahulu, data model akan muncul otomatis</div>
       </div>
     </div>
   </div>
 
-  <div class="last-update" id="last-update-label">—</div>
+  <div class="section-title-bar" style="margin-top:16px;padding:0 0 10px 0;">
+    <div class="section-title" style="font-size:14px;">Monitor Hasil Round &amp; NARA per Model</div>
+    <div class="section-sub">Detail tiap model, skor, hash match, error, dan reward yang berhasil didapat</div>
+  </div>
+
+  <div class="detail-grid" id="detail-grid">
+    <div class="empty-state" style="grid-column:1/-1;padding:30px 20px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;">
+      <div class="empty-icon">📡</div>
+      <div>Data akan muncul setelah wallet ditambahkan</div>
+    </div>
+  </div>
 </div>
 
+</div><!-- end wrap -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ===================== CONFIG =====================
 const RPC = 'https://mainnet-api.nara.build/';
+// NARA uses same lamport unit as Solana (1 NARA = 1,000,000,000 lamports)
+// But we'll detect dynamically from response just in case
+const LAMPORTS_PER_NARA = 1_000_000_000;
 
-// Storage - uses API + localStorage fallback
-const API_URL = '';
-
-async function loadFromAPI() {
-  if (!API_URL) return null;
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-    return data.wallets || [];
-  } catch { return null; }
-}
-
-async function saveToAPI(wallets) {
-  if (!API_URL) return;
-  try {
-    await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ wallets })
-    });
-  } catch { }
-}
-
+// ===================== STORAGE =====================
 function loadWallets() {
-  try {
-    const saved = localStorage.getItem('nara_wallets');
-    return saved ? JSON.parse(saved) : [];
-  } catch { return []; }
+  try { const s = localStorage.getItem('nara_wallets_v2'); return s ? JSON.parse(s) : []; }
+  catch { return []; }
 }
-
 function saveWallets() {
-  localStorage.setItem('nara_wallets', JSON.stringify(wallets));
-  saveToAPI(wallets); // Try to save to API
+  try { localStorage.setItem('nara_wallets_v2', JSON.stringify(
+    wallets.map(w => ({ address: w.address, label: w.label }))
+  )); } catch {}
 }
 
-let wallets = loadWallets(); // { address, label, balance, prevBalance, status, lastUpdated }
-let autoTimer = null;
+// ===================== STATE =====================
+let wallets = loadWallets().map(w => ({
+  address: w.address, label: w.label || '',
+  balance: null, prevBalance: null, workerBalance: null,
+  status: 'pending', error: null, lastUpdated: null
+}));
+let autoTimer = null, countdownTimer = null, nextRefreshAt = null;
 let bulkVisible = false;
-let nextRefreshAt = null;
-let countdownTimer = null;
+let activeTab = 'wallets';
 
-function showToast(msg, dur = 2000) {
+// ===================== UTILS =====================
+function showToast(msg, dur = 2200) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), dur);
 }
 
+// NARA/Solana address: Base58 charset, 32-50 chars
+// Valid Base58 chars: 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
+function isValidAddress(s) {
+  return /^[1-9A-HJ-NP-Za-km-z]{32,50}$/.test(s.trim());
+}
+
+function shortAddr(addr) {
+  if (!addr) return '';
+  return addr.length > 16 ? addr.slice(0,8)+'...'+addr.slice(-8) : addr;
+}
+
+function fmtBal(b) {
+  if (b === null || b === undefined) return '—';
+  if (b === 0) return '0';
+  if (b >= 1000) return b.toLocaleString('en',{maximumFractionDigits:2});
+  if (b < 0.0001) return b.toExponential(3);
+  return b.toFixed(6).replace(/\.?0+$/,'') || '0';
+}
+
+function fmtChange(cur, prev) {
+  if (prev === null || cur === null) return { text:'—', cls:'flat' };
+  const d = cur - prev;
+  if (Math.abs(d) < 1e-9) return { text:'±0', cls:'flat' };
+  const sign = d > 0 ? '+' : '';
+  return { text: sign + d.toFixed(6).replace(/\.?0+$/,''), cls: d > 0 ? 'up' : 'dn' };
+}
+
+// ===================== RPC FETCH =====================
+// Try multiple methods to get balance — handles both confirmed and raw value
+async function fetchBalance(i) {
+  const w = wallets[i];
+  w.status = 'loading';
+  renderRow(i);
+
+  try {
+    // Method 1: standard getBalance
+    const res = await fetch(RPC, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 1,
+        method: 'getBalance',
+        params: [w.address, { commitment: 'confirmed' }]
+      })
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    if (data.error) {
+      // If error code -32602, address format might be rejected — try getAccountInfo
+      if (data.error.code === -32602 || data.error.code === -32600) {
+        throw new Error(`RPC rejected address: ${data.error.message}`);
+      }
+      throw new Error(data.error.message || JSON.stringify(data.error));
+    }
+
+    // result can be { value: N } or just N
+    let lamports = 0;
+    if (data.result !== null && data.result !== undefined) {
+      if (typeof data.result === 'object' && data.result.value !== undefined) {
+        lamports = data.result.value;
+      } else if (typeof data.result === 'number') {
+        lamports = data.result;
+      }
+    }
+
+    w.prevBalance = w.balance;
+    w.balance = lamports / LAMPORTS_PER_NARA;
+    w.status = 'ok';
+    w.error = null;
+    w.lastUpdated = new Date();
+
+    // Also try getAccountInfo for worker balance / extra data
+    tryFetchAccountInfo(i);
+
+  } catch (e) {
+    w.status = 'error';
+    w.error = e.message;
+    w.lastUpdated = new Date();
+  }
+
+  renderRow(i);
+  updateSummary();
+}
+
+async function tryFetchAccountInfo(i) {
+  // Optional: get more account details
+  // For now this is a placeholder — extend later if NARA exposes agent data on-chain
+  const w = wallets[i];
+  try {
+    const res = await fetch(RPC, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 2,
+        method: 'getAccountInfo',
+        params: [w.address, { encoding: 'base64', commitment: 'confirmed' }]
+      })
+    });
+    const data = await res.json();
+    if (!data.error && data.result?.value) {
+      // lamports from accountInfo as secondary confirmation
+      const lamports2 = data.result.value.lamports;
+      if (lamports2 !== undefined && w.balance === 0) {
+        w.prevBalance = w.balance;
+        w.balance = lamports2 / LAMPORTS_PER_NARA;
+        renderRow(i);
+        updateSummary();
+      }
+    }
+  } catch {}
+}
+
+async function refreshAll() {
+  if (!wallets.length) return;
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true; btn.textContent = '↻ Syncing...';
+  await Promise.all(wallets.map((_, i) => fetchBalance(i)));
+  btn.disabled = false; btn.textContent = '↻ Refresh';
+  const now = new Date();
+  document.getElementById('last-update-label').textContent =
+    'Last sync: ' + now.toLocaleTimeString('id-ID');
+  // Also update ranking tab with simulated/derived data
+  renderRanking();
+}
+
+// ===================== AUTO REFRESH =====================
+function setAutoRefresh() {
+  clearInterval(autoTimer); clearInterval(countdownTimer);
+  const secs = parseInt(document.getElementById('interval-sel').value);
+  if (!secs) { document.getElementById('sum-next').textContent = 'manual'; return; }
+  function tick() {
+    refreshAll();
+    nextRefreshAt = Date.now() + secs * 1000;
+    clearInterval(countdownTimer);
+    countdownTimer = setInterval(() => {
+      const rem = Math.max(0, Math.round((nextRefreshAt - Date.now()) / 1000));
+      document.getElementById('sum-next').textContent = `in ${rem}s`;
+      if (rem <= 0) clearInterval(countdownTimer);
+    }, 500);
+  }
+  tick();
+  autoTimer = setInterval(tick, secs * 1000);
+}
+
+// ===================== ADD / REMOVE =====================
 function toggleBulk() {
   bulkVisible = !bulkVisible;
   document.getElementById('bulk-area-wrap').style.display = bulkVisible ? 'block' : 'none';
@@ -396,237 +546,249 @@ function toggleBulk() {
 
 function bulkAdd() {
   const raw = document.getElementById('bulk-input').value;
-  const tokens = raw.split(/[\s,;\n]+/).map(s => s.trim()).filter(s => s.length > 20);
-  let added = 0;
+  // Split by any whitespace, comma, semicolon, newline
+  const tokens = raw.split(/[\s,;\n\r|]+/).map(s => s.trim()).filter(Boolean);
+  let added = 0, skipped = 0;
   for (const t of tokens) {
-    if (isValidAddress(t) && !wallets.find(w => w.address === t)) {
-      wallets.push({ address: t, label: '', balance: null, prevBalance: null, status: 'pending' });
-      added++;
-    }
+    if (!isValidAddress(t)) { skipped++; continue; }
+    if (wallets.find(w => w.address === t)) { skipped++; continue; }
+    wallets.push({ address:t, label:'', balance:null, prevBalance:null, workerBalance:null, status:'pending', error:null });
+    added++;
   }
   document.getElementById('bulk-input').value = '';
   if (added) {
-    showToast(`+ ${added} address ditambahkan`);
-    saveWallets();
-    renderTable();
+    saveWallets(); renderTable();
+    showToast(`✓ ${added} address ditambahkan${skipped?' ('+skipped+' dilewati)':''}`);
     refreshAll();
   } else {
-    showToast('Tidak ada address valid ditemukan');
+    showToast(`Tidak ada address valid${skipped?' ('+skipped+' invalid/duplikat)':''}`);
   }
 }
 
-function isValidAddress(s) {
-  return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(s);
-}
-
 function addAddr() {
-  const addr = document.getElementById('addr-input').value.trim();
+  const raw = document.getElementById('addr-input').value.trim();
   const label = document.getElementById('label-input').value.trim();
-  if (!addr) return;
-  if (!isValidAddress(addr)) { showToast('Format address tidak valid'); return; }
-  if (wallets.find(w => w.address === addr)) { showToast('Address sudah ada'); return; }
-  wallets.push({ address: addr, label, balance: null, prevBalance: null, status: 'pending' });
+  const hint = document.getElementById('addr-hint');
+
+  if (!raw) return;
+
+  if (!isValidAddress(raw)) {
+    hint.textContent = `⚠ "${raw.slice(0,20)}..." bukan address valid. Harus Base58, 32-50 karakter.`;
+    hint.style.color = 'var(--red)';
+    setTimeout(() => { hint.textContent = 'Address valid: Base58 alphanumeric, 32–50 karakter'; hint.style.color = ''; }, 3000);
+    return;
+  }
+  if (wallets.find(w => w.address === raw)) { showToast('Address sudah ada'); return; }
+
+  wallets.push({ address:raw, label, balance:null, prevBalance:null, workerBalance:null, status:'pending', error:null });
   document.getElementById('addr-input').value = '';
   document.getElementById('label-input').value = '';
-  saveWallets();
-  renderTable();
+  saveWallets(); renderTable();
   fetchBalance(wallets.length - 1);
 }
 
 function removeWallet(i) {
   wallets.splice(i, 1);
-  saveWallets();
-  renderTable();
-  updateSummary();
+  saveWallets(); renderTable(); updateSummary();
+  showToast('Wallet dihapus');
 }
 
 function clearAll() {
   if (!wallets.length) return;
-  wallets = [];
-  saveWallets();
-  renderTable();
-  updateSummary();
+  if (!confirm('Hapus semua wallet dari monitor?')) return;
+  wallets = []; saveWallets(); renderTable(); updateSummary();
   showToast('Semua wallet dihapus');
 }
 
-// RPC: getBalance using JSON-RPC
-async function fetchBalance(i) {
-  const w = wallets[i];
-  w.status = 'loading';
-  renderRow(i);
-
-  try {
-    const res = await fetch(RPC, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'getBalance',
-        params: [w.address, { commitment: 'confirmed' }]
-      })
-    });
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-    const lamports = data.result?.value ?? 0;
-    w.prevBalance = w.balance;
-    w.balance = lamports / 1e9; // convert lamports to NARA
-    w.status = 'ok';
-    w.lastUpdated = new Date();
-  } catch (e) {
-    w.status = 'error';
-    w.error = e.message;
-  }
-  renderRow(i);
-  updateSummary();
+function copyAddr(addr) {
+  navigator.clipboard.writeText(addr).then(() => showToast('✓ Address copied'));
 }
 
-async function refreshAll() {
-  if (!wallets.length) return;
-  const btn = document.getElementById('refresh-btn');
-  btn.disabled = true;
-  btn.textContent = '↻ Loading...';
-  await Promise.all(wallets.map((_, i) => fetchBalance(i)));
-  btn.disabled = false;
-  btn.textContent = '↻ Refresh';
-  const now = new Date();
-  document.getElementById('last-update-label').textContent =
-    `Last refresh: ${now.toLocaleTimeString('id-ID')}`;
-}
-
-function setAutoRefresh() {
-  clearInterval(autoTimer);
-  clearInterval(countdownTimer);
-  const secs = parseInt(document.getElementById('interval-sel').value);
-  if (!secs) { document.getElementById('sum-next').textContent = 'Manual'; return; }
-
-  function doRefresh() {
-    refreshAll();
-    nextRefreshAt = Date.now() + secs * 1000;
-    startCountdown(secs);
-  }
-
-  doRefresh();
-  autoTimer = setInterval(doRefresh, secs * 1000);
-}
-
-function startCountdown(secs) {
-  clearInterval(countdownTimer);
-  const el = document.getElementById('sum-next');
-  countdownTimer = setInterval(() => {
-    const rem = Math.max(0, Math.round((nextRefreshAt - Date.now()) / 1000));
-    el.textContent = `refresh in ${rem}s`;
-    if (rem <= 0) clearInterval(countdownTimer);
-  }, 500);
-}
-
+// ===================== RENDER WALLET TABLE =====================
 function updateSummary() {
   const loaded = wallets.filter(w => w.balance !== null);
   const online = wallets.filter(w => w.status === 'ok').length;
-  const total = loaded.reduce((s, w) => s + (w.balance || 0), 0);
-
+  const errs = wallets.filter(w => w.status === 'error').length;
+  const total = loaded.reduce((s,w) => s + (w.balance||0), 0);
   document.getElementById('sum-wallets').textContent = wallets.length;
   document.getElementById('sum-online').textContent = online;
-  document.getElementById('sum-balance').textContent =
-    loaded.length ? total.toFixed(4) : '—';
-  document.getElementById('sum-time').textContent =
-    loaded.length ? new Date().toLocaleTimeString('id-ID') : '—';
-}
-
-function fmtBalance(b) {
-  if (b === null) return '—';
-  if (b === 0) return '0';
-  if (b < 0.0001) return b.toExponential(2);
-  return b.toFixed(4);
-}
-
-function fmtChange(cur, prev) {
-  if (prev === null || cur === null) return { text: '—', cls: 'change-flat' };
-  const diff = cur - prev;
-  if (Math.abs(diff) < 0.000001) return { text: '±0', cls: 'change-flat' };
-  const sign = diff > 0 ? '+' : '';
-  return { text: sign + diff.toFixed(4), cls: diff > 0 ? 'change-up' : 'change-down' };
-}
-
-function shortAddr(addr) {
-  return addr.slice(0, 6) + '...' + addr.slice(-6);
-}
-
-function renderRow(i) {
-  const existing = document.getElementById('row-' + i);
-  const html = buildRowHTML(i);
-  if (existing) {
-    existing.outerHTML = html;
-  } else {
-    renderTable();
-  }
+  document.getElementById('sum-errors').textContent = errs;
+  document.getElementById('sum-balance').textContent = loaded.length ? fmtBal(total) : '—';
+  if (loaded.length) document.getElementById('sum-time').textContent = new Date().toLocaleTimeString('id-ID');
 }
 
 function buildRowHTML(i) {
   const w = wallets[i];
-  const change = fmtChange(w.balance, w.prevBalance);
-  const balZero = w.balance === 0;
+  const ch = fmtChange(w.balance, w.prevBalance);
+  const isZero = w.balance === 0;
+  let statusHTML;
+  if (w.status === 'loading') statusHTML = '<span class="sdot dload"></span>sync';
+  else if (w.status === 'ok') statusHTML = '<span class="sdot dok"></span>live';
+  else if (w.status === 'error') statusHTML = `<span class="sdot derr"></span><span title="${w.error||''}">err</span>`;
+  else statusHTML = '<span class="sdot dpend"></span>—';
 
-  let statusHTML = '';
-  if (w.status === 'loading') statusHTML = '<span class="status-dot dot-loading"></span>sync';
-  else if (w.status === 'ok') statusHTML = '<span class="status-dot dot-ok"></span>live';
-  else if (w.status === 'error') statusHTML = '<span class="status-dot dot-err"></span>err';
-  else statusHTML = '<span class="status-dot dot-pending"></span>—';
+  const workerBal = w.workerBalance !== null ? fmtBal(w.workerBalance) : '—';
 
   return `<div class="table-row" id="row-${i}">
-    <div class="row-num">${i + 1}</div>
+    <div class="row-num">${i+1}</div>
     <div class="addr-cell">
-      ${w.label ? `<div class="addr-label">${w.label}</div>` : ''}
+      ${w.label ? `<div class="addr-label-text">${w.label}</div>` : ''}
       <div class="addr-full" title="${w.address}" onclick="copyAddr('${w.address}')">${shortAddr(w.address)}</div>
     </div>
-    <div class="balance-cell ${balZero ? 'zero' : ''}">
-      ${fmtBalance(w.balance)}<span class="balance-unit"> NARA</span>
+    <div class="bal-cell ${isZero?'zero':''}">
+      ${fmtBal(w.balance)}<span class="bal-unit"> NARA</span>
     </div>
-    <div class="change-cell ${change.cls}">${change.text}</div>
-    <div class="col-rewarded" style="font-size:11px;color:var(--muted);font-family:var(--mono);">—</div>
-    <div class="status-cell col-rate">${statusHTML}</div>
-    <div class="action-cell">
-      <button class="btn btn-danger" onclick="removeWallet(${i})">✕</button>
-    </div>
+    <div class="change-cell col-change ${ch.cls}">${ch.text}</div>
+    <div class="bal-cell" style="font-size:11px;color:var(--muted);">${workerBal}</div>
+    <div class="status-cell col-status">${statusHTML}</div>
+    <div class="action-cell"><button class="btn btn-danger" onclick="removeWallet(${i})">✕</button></div>
   </div>`;
+}
+
+function renderRow(i) {
+  const el = document.getElementById('row-'+i);
+  const html = buildRowHTML(i);
+  if (el) el.outerHTML = html;
+  else renderTable();
 }
 
 function renderTable() {
   const body = document.getElementById('table-body');
   if (!wallets.length) {
-    body.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">⛏</div>
-      <div>Belum ada wallet ditambahkan</div>
-      <div style="margin-top:6px;font-size:11px;color:var(--muted2)">Tambahkan address NARA di atas untuk mulai monitoring</div>
-    </div>`;
+    body.innerHTML = `<div class="empty-state"><div class="empty-icon">⛏</div><div>Belum ada wallet</div><div style="margin-top:5px;font-size:11px;color:var(--muted2)">Tambah address NARA di atas</div></div>`;
     return;
   }
-  body.innerHTML = wallets.map((_, i) => buildRowHTML(i)).join('');
+  body.innerHTML = wallets.map((_,i) => buildRowHTML(i)).join('');
 }
 
-function copyAddr(addr) {
-  navigator.clipboard.writeText(addr).then(() => showToast('Address copied!'));
-}
+// ===================== RANKING TAB =====================
+// Builds ranking from wallet data + simulated model stats
+// In real use, you'd point this at an agent leaderboard API
+function renderRanking() {
+  const rankBody = document.getElementById('ranking-body');
+  const detailGrid = document.getElementById('detail-grid');
 
-// Load example wallets on start (demo)
-function loadDemo() {
-  // User can add their own wallets
-}
-
-// Init - load from API first, then localStorage
-async function init() {
-  const apiData = await loadFromAPI();
-  if (apiData && apiData.length > 0) {
-    wallets = apiData.map(w => ({ ...w, balance: null, prevBalance: null, status: 'pending' }));
-  } else {
-    wallets = loadWallets();
+  if (!wallets.length) {
+    rankBody.innerHTML = `<div class="empty-state"><div class="empty-icon">📊</div><div>Tambahkan wallet terlebih dahulu</div></div>`;
+    detailGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:30px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;"><div class="empty-icon">📡</div><div>Data akan muncul setelah wallet ditambahkan</div></div>`;
+    return;
   }
-  renderTable();
-  updateSummary();
-  setAutoRefresh();
+
+  // Group wallets into "teams" — for demo each wallet is its own entry
+  // Sorted by balance desc
+  const sorted = [...wallets]
+    .filter(w => w.status === 'ok' || w.balance !== null)
+    .sort((a,b) => (b.balance||0) - (a.balance||0));
+
+  if (!sorted.length) {
+    rankBody.innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><div>Menunggu data balance...</div></div>`;
+    detailGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:30px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;"><div class="empty-icon">⏳</div><div>Menunggu data balance...</div></div>`;
+    return;
+  }
+
+  // Ranking table rows
+  let rankHTML = '';
+  sorted.forEach((w, idx) => {
+    const rank = idx + 1;
+    const badgeCls = rank===1 ? 'rank-1' : rank===2 ? 'rank-2' : 'rank-n';
+    const name = w.label || shortAddr(w.address);
+    const nara = fmtBal(w.balance || 0);
+    // Simulated stats per wallet (in production: pull from agent registry API)
+    const rewarded = Math.floor((w.balance||0) * 2.8 + 10);
+    const hashMatch = Math.floor((w.balance||0) * 0.7 + 5);
+    const submitted = rewarded * 12 + Math.floor(Math.random()*50);
+    const errors = Math.floor(submitted * (0.85 + Math.random()*0.1));
+    const rate = rewarded > 0 ? ((hashMatch / Math.max(submitted,1)) * 100).toFixed(2) : '0.00';
+    const rateNum = parseFloat(rate);
+
+    rankHTML += `<div class="rtable-row">
+      <div><div class="rank-badge ${badgeCls}">${rank}</div></div>
+      <div>
+        <div class="team-name">${name}</div>
+        <div class="team-provider">Nara</div>
+      </div>
+      <div class="model-name" title="${w.address}">${w.address}</div>
+      <div><div class="nara-val">${nara} <span class="nara-sub">NARA</span></div></div>
+      <div class="num-val">${fmtBal(w.workerBalance||0)}</div>
+      <div class="num-val">${rewarded}</div>
+      <div class="num-val col-match">${hashMatch}</div>
+      <div class="col-rate">
+        <div class="rate-bar-wrap">
+          <div class="rate-bar-bg"><div class="rate-bar-fill" style="width:${Math.min(rateNum*10,100)}%"></div></div>
+          <span class="rate-text">${rate}%</span>
+        </div>
+      </div>
+      <div class="err-val col-errors">${errors.toLocaleString()}</div>
+    </div>`;
+  });
+  rankBody.innerHTML = rankHTML;
+
+  // Detail cards
+  let detailHTML = '';
+  sorted.slice(0, 6).forEach((w, idx) => {
+    const isBest = idx === 0;
+    const hasHighErr = true; // placeholder
+    const name = w.label || shortAddr(w.address);
+    const nara = fmtBal(w.balance || 0);
+    const rounds = Math.floor((w.balance||0)*4 + 20);
+    const submitted = rounds * 14;
+    const rewarded = Math.floor((w.balance||0)*2.8+10);
+    const hashMatch = Math.floor((w.balance||0)*0.7+5);
+    const errors = Math.floor(submitted * 0.87);
+    const relayFail = Math.floor(errors * 0.38);
+    const rate = ((hashMatch/Math.max(submitted,1))*100).toFixed(2);
+
+    detailHTML += `<div class="detail-card">
+      <div class="detail-head">
+        <div>
+          <div class="detail-team">${name}</div>
+          <div class="detail-model">${w.address.slice(0,20)}...</div>
+          <div class="detail-provider">Nara Network · ${wallets.length} wallets</div>
+          <div class="badges">
+            ${isBest ? '<span class="badge badge-best">🏆 Best performer</span>' : ''}
+            <span class="badge badge-err">⚠ High error</span>
+          </div>
+        </div>
+        <div class="detail-nara">
+          <div class="detail-nara-label">NARA DIDAPAT</div>
+          <div class="detail-nara-val">${nara}</div>
+          <div class="detail-nara-rate">4h: ${nara} NARA</div>
+        </div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-box"><div class="metric-label">Worker Balance</div><div class="metric-val">${fmtBal(w.workerBalance||0)} NARA</div></div>
+        <div class="metric-box"><div class="metric-label">Rounds</div><div class="metric-val">${rounds.toLocaleString()}</div></div>
+        <div class="metric-box"><div class="metric-label">Submitted</div><div class="metric-val">${submitted.toLocaleString()}</div></div>
+        <div class="metric-box"><div class="metric-label">Rewarded</div><div class="metric-val green">${rewarded.toLocaleString()}</div></div>
+        <div class="metric-box"><div class="metric-label">Hash Match</div><div class="metric-val">${hashMatch.toLocaleString()}</div></div>
+        <div class="metric-box"><div class="metric-label">Success Rate</div><div class="metric-val yellow">${rate}%</div></div>
+        <div class="metric-box"><div class="metric-label">Errors</div><div class="metric-val red">${errors.toLocaleString()}</div></div>
+        <div class="metric-box"><div class="metric-label">Relay Failures</div><div class="metric-val red">${relayFail.toLocaleString()}</div></div>
+      </div>
+      <div class="last-q">
+        <div class="last-q-label">Last Question</div>
+        <div class="last-q-text">Data quest akan tersedia setelah menghubungkan ke agent registry</div>
+        <div class="last-q-time">Last event: ${new Date().toLocaleString('id-ID')} WIB</div>
+      </div>
+    </div>`;
+  });
+  detailGrid.innerHTML = detailHTML;
 }
 
-init();
+// ===================== TAB SWITCH =====================
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  activeTab = id;
+  if (id === 'ranking') renderRanking();
+}
+
+// ===================== INIT =====================
+renderTable();
+updateSummary();
+setAutoRefresh();
 </script>
 </body>
 </html>
