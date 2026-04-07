@@ -341,15 +341,39 @@ body::before {
 <script>
 const RPC = 'https://mainnet-api.nara.build/';
 
-// Load from localStorage
+// Storage - uses API + localStorage fallback
+const API_URL = '';
+
+async function loadFromAPI() {
+  if (!API_URL) return null;
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    return data.wallets || [];
+  } catch { return null; }
+}
+
+async function saveToAPI(wallets) {
+  if (!API_URL) return;
+  try {
+    await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wallets })
+    });
+  } catch { }
+}
+
 function loadWallets() {
   try {
     const saved = localStorage.getItem('nara_wallets');
     return saved ? JSON.parse(saved) : [];
   } catch { return []; }
 }
+
 function saveWallets() {
   localStorage.setItem('nara_wallets', JSON.stringify(wallets));
+  saveToAPI(wallets); // Try to save to API
 }
 
 let wallets = loadWallets(); // { address, label, balance, prevBalance, status, lastUpdated }
@@ -589,10 +613,20 @@ function loadDemo() {
   // User can add their own wallets
 }
 
-// Init
-renderTable();
-updateSummary();
-setAutoRefresh();
+// Init - load from API first, then localStorage
+async function init() {
+  const apiData = await loadFromAPI();
+  if (apiData && apiData.length > 0) {
+    wallets = apiData.map(w => ({ ...w, balance: null, prevBalance: null, status: 'pending' }));
+  } else {
+    wallets = loadWallets();
+  }
+  renderTable();
+  updateSummary();
+  setAutoRefresh();
+}
+
+init();
 </script>
 </body>
 </html>
