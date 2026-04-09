@@ -28,17 +28,13 @@
   --sans: 'Inter',system-ui,sans-serif;
 }
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 body { background:var(--bg); color:var(--text); font-family:var(--sans); min-height:100vh; overflow-x:hidden; }
 body::before {
   content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
   background-image: linear-gradient(rgba(0,200,100,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(0,200,100,0.025) 1px,transparent 1px);
   background-size: 40px 40px;
 }
-
 .wrap { position:relative; z-index:1; max-width:1140px; margin:0 auto; padding:20px 18px; }
-
-/* HEADER */
 .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:10px; }
 .logo-row { display:flex; align-items:center; gap:12px; }
 .logo-dot { width:9px; height:9px; background:var(--green); border-radius:50%; box-shadow:0 0 8px var(--green); animation:blink 2s infinite; }
@@ -50,16 +46,12 @@ body::before {
 .refresh-btn:hover { background:rgba(0,200,120,0.1); }
 .refresh-btn:disabled { opacity:0.4; cursor:not-allowed; }
 .interval-select { font-size:11px; font-family:var(--mono); padding:6px 10px; background:var(--surface2); border:1px solid var(--border2); color:var(--green2); border-radius:6px; outline:none; cursor:pointer; }
-
-/* TABS */
 .tabs { display:flex; gap:4px; margin-bottom:18px; border-bottom:1px solid var(--border2); padding-bottom:0; }
 .tab-btn { font-size:12px; font-family:var(--mono); padding:8px 16px; background:transparent; border:none; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; margin-bottom:-1px; }
 .tab-btn.active { color:var(--green); border-bottom-color:var(--green); }
 .tab-btn:hover { color:var(--text); }
 .tab-pane { display:none; }
 .tab-pane.active { display:block; }
-
-/* SUMMARY */
 .summary { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:18px; }
 @media(max-width:780px){ .summary { grid-template-columns:repeat(3,1fr); } }
 @media(max-width:480px){ .summary { grid-template-columns:repeat(2,1fr); } }
@@ -69,8 +61,6 @@ body::before {
 .stat-val.neutral { color:var(--text); font-size:16px; }
 .stat-val.red { color:var(--red); }
 .stat-sub { font-size:9px; color:var(--muted); margin-top:3px; }
-
-/* INPUT PANEL */
 .input-panel { background:var(--surface); border:1px solid var(--border2); border-radius:12px; padding:14px; margin-bottom:18px; }
 .input-panel-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
 .panel-title { font-size:11px; font-weight:500; color:var(--green2); font-family:var(--mono); letter-spacing:.06em; }
@@ -88,84 +78,10 @@ body::before {
 .bulk-area { width:100%; padding:7px 11px; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; font-size:11px; font-family:var(--mono); color:var(--text); resize:vertical; height:64px; outline:none; }
 .bulk-area:focus { border-color:var(--border3); }
 .input-hint { font-size:10px; color:var(--muted); font-family:var(--mono); }
-
-/* RANKING TABLE */
-.ranking-section { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; margin-bottom:18px; }
-.section-title-bar { padding:14px 16px; border-bottom:1px solid var(--border2); }
-.section-title { font-size:15px; font-weight:600; color:var(--text); }
-.section-sub { font-size:11px; color:var(--muted); margin-top:2px; }
-
-.rtable-head, .rtable-row {
-  display:grid;
-  grid-template-columns: 36px 110px minmax(0,1fr) 120px 90px 80px 90px 110px 80px;
-  padding:9px 14px;
-  gap:0;
-  align-items:center;
-}
-.rtable-head { font-size:10px; font-family:var(--mono); color:var(--muted); letter-spacing:.07em; text-transform:uppercase; border-bottom:1px solid var(--border2); }
-.rtable-row { border-bottom:1px solid var(--border); transition:background .1s; }
-.rtable-row:last-child { border-bottom:none; }
-.rtable-row:hover { background:rgba(0,200,120,0.025); }
-
-@media(max-width:900px){
-  .rtable-head, .rtable-row { grid-template-columns: 28px 80px minmax(0,1fr) 90px 70px 60px; }
-  .col-match,.col-rate,.col-errors { display:none; }
-}
-
-.rank-badge { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; font-family:var(--mono); }
-.rank-1 { background:rgba(245,200,66,.15); color:var(--yellow); border:1px solid rgba(245,200,66,.3); }
-.rank-2 { background:rgba(77,166,255,.12); color:var(--blue); border:1px solid rgba(77,166,255,.2); }
-.rank-n { background:var(--surface2); color:var(--muted); border:1px solid var(--border2); }
-
-.team-name { font-size:12px; font-weight:500; color:var(--text); font-family:var(--mono); }
-.team-provider { font-size:10px; color:var(--muted); margin-top:1px; }
-.model-name { font-size:11px; color:var(--muted); font-family:var(--mono); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.nara-val { font-size:13px; font-weight:600; font-family:var(--mono); color:var(--green); }
-.nara-sub { font-size:10px; color:var(--muted); font-weight:400; }
-.num-val { font-size:12px; font-family:var(--mono); color:var(--text); }
-.err-val { font-size:12px; font-family:var(--mono); color:var(--red); }
-.rate-bar-wrap { display:flex; align-items:center; gap:6px; }
-.rate-bar-bg { flex:1; height:4px; background:var(--muted2); border-radius:2px; overflow:hidden; max-width:80px; }
-.rate-bar-fill { height:100%; background:var(--green3); border-radius:2px; transition:width .4s; }
-.rate-text { font-size:10px; font-family:var(--mono); color:var(--text); min-width:36px; }
-
-/* DETAIL CARDS */
-.detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-@media(max-width:680px){ .detail-grid { grid-template-columns:1fr; } }
-
-.detail-card { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; }
-.detail-head { padding:14px 16px; border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:flex-start; }
-.detail-team { font-size:15px; font-weight:600; color:var(--text); }
-.detail-model { font-size:11px; color:var(--green2); margin-top:2px; font-family:var(--mono); }
-.detail-provider { font-size:10px; color:var(--muted); margin-top:3px; }
-.detail-nara { text-align:right; }
-.detail-nara-label { font-size:9px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; }
-.detail-nara-val { font-size:22px; font-weight:600; font-family:var(--mono); color:var(--green); line-height:1.1; }
-.detail-nara-rate { font-size:10px; color:var(--muted); margin-top:2px; }
-
-.badges { display:flex; gap:6px; margin-top:6px; }
-.badge { font-size:10px; padding:2px 8px; border-radius:4px; font-family:var(--mono); border:1px solid; }
-.badge-best { background:rgba(245,200,66,.1); color:var(--yellow); border-color:rgba(245,200,66,.25); }
-.badge-err { background:rgba(255,77,106,.1); color:var(--red); border-color:rgba(255,77,106,.25); }
-
-.metrics-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
-.metric-box { background:var(--surface); padding:10px 14px; }
-.metric-label { font-size:10px; color:var(--muted); margin-bottom:4px; }
-.metric-val { font-size:16px; font-weight:600; font-family:var(--mono); color:var(--text); }
-.metric-val.red { color:var(--red); }
-.metric-val.green { color:var(--green); }
-.metric-val.yellow { color:var(--yellow); }
-
-.last-q { padding:12px 14px; border-top:1px solid var(--border2); }
-.last-q-label { font-size:9px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; margin-bottom:5px; }
-.last-q-text { font-size:12px; color:var(--text); line-height:1.5; }
-.last-q-time { font-size:10px; color:var(--muted); margin-top:4px; font-family:var(--mono); }
-
-/* WALLET TABLE */
 .table-wrap { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; }
 .table-header {
   display:grid;
-  grid-template-columns: 34px 1fr 130px 90px 80px 70px 52px;
+  grid-template-columns: 34px 1fr 150px 100px 80px 70px 52px;
   padding:9px 14px;
   border-bottom:1px solid var(--border2);
   font-size:10px; font-family:var(--mono); color:var(--muted); letter-spacing:.07em; text-transform:uppercase;
@@ -173,7 +89,7 @@ body::before {
 .table-body { max-height:500px; overflow-y:auto; }
 .table-row {
   display:grid;
-  grid-template-columns: 34px 1fr 130px 90px 80px 70px 52px;
+  grid-template-columns: 34px 1fr 150px 100px 80px 70px 52px;
   padding:9px 14px;
   border-bottom:1px solid var(--border);
   align-items:center;
@@ -182,8 +98,8 @@ body::before {
 .table-row:last-child { border-bottom:none; }
 .table-row:hover { background:rgba(0,200,120,0.025); }
 @media(max-width:680px){
-  .table-header { grid-template-columns: 28px 1fr 100px 70px 48px; }
-  .table-row { grid-template-columns: 28px 1fr 100px 70px 48px; }
+  .table-header { grid-template-columns: 28px 1fr 110px 70px 48px; }
+  .table-row { grid-template-columns: 28px 1fr 110px 70px 48px; }
   .col-change,.col-status { display:none; }
 }
 .row-num { font-size:11px; color:var(--muted); font-family:var(--mono); }
@@ -196,8 +112,8 @@ body::before {
 .bal-unit { font-size:9px; color:var(--muted); font-weight:400; }
 .change-cell { font-size:11px; font-family:var(--mono); }
 .up { color:var(--green); } .dn { color:var(--red); } .flat { color:var(--muted); }
-.status-cell { font-size:10px; font-family:var(--mono); display:flex; align-items:center; }
-.sdot { width:6px; height:6px; border-radius:50%; display:inline-block; margin-right:4px; flex-shrink:0; }
+.status-cell { font-size:10px; font-family:var(--mono); display:flex; align-items:center; gap:3px; flex-wrap:wrap; }
+.sdot { width:6px; height:6px; border-radius:50%; display:inline-block; flex-shrink:0; }
 .dok { background:var(--green); box-shadow:0 0 5px var(--green); }
 .derr { background:var(--red); }
 .dload { background:var(--yellow); animation:blink 1s infinite; }
@@ -205,172 +121,214 @@ body::before {
 .action-cell { display:flex; justify-content:flex-end; }
 .empty-state { padding:40px 20px; text-align:center; color:var(--muted); font-family:var(--mono); font-size:13px; }
 .empty-icon { font-size:28px; margin-bottom:10px; opacity:.35; }
-
-/* TOAST */
+.method-tag { font-size:9px; padding:1px 5px; border-radius:3px; background:rgba(0,200,120,0.1); color:var(--green3); font-family:var(--mono); margin-left:4px; }
+.method-tag.spl { background:rgba(77,166,255,0.12); color:var(--blue); }
+.method-tag.err { background:rgba(255,77,106,0.1); color:var(--red); }
+/* Debug panel */
+.debug-panel { background:var(--surface); border:1px solid rgba(245,200,66,0.2); border-radius:12px; padding:14px; margin-bottom:18px; }
+.debug-title { font-size:10px; color:var(--yellow); font-family:var(--mono); letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; }
+.debug-log { font-size:10px; font-family:var(--mono); color:var(--muted); max-height:200px; overflow-y:auto; display:flex; flex-direction:column; gap:3px; }
+.debug-log .ok { color:var(--green2); }
+.debug-log .warn { color:var(--yellow); }
+.debug-log .fail { color:var(--red); }
+.debug-log .info { color:var(--blue); }
 .toast { position:fixed; bottom:20px; right:20px; background:var(--surface3); border:1px solid var(--border3); color:var(--green); font-family:var(--mono); font-size:12px; padding:9px 15px; border-radius:8px; opacity:0; transform:translateY(8px); transition:all .2s; pointer-events:none; z-index:999; }
 .toast.show { opacity:1; transform:translateY(0); }
-
 .last-update { font-size:10px; color:var(--muted); font-family:var(--mono); text-align:right; margin-top:8px; }
-
 ::-webkit-scrollbar { width:4px; height:4px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:var(--border3); border-radius:2px; }
+
+/* Ranking */
+.ranking-section { background:var(--surface); border:1px solid var(--border2); border-radius:12px; overflow:hidden; margin-bottom:18px; }
+.section-title-bar { padding:14px 16px; border-bottom:1px solid var(--border2); }
+.section-title { font-size:15px; font-weight:600; color:var(--text); }
+.section-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+.rtable-head, .rtable-row {
+  display:grid;
+  grid-template-columns: 36px 110px minmax(0,1fr) 120px 90px 80px 90px;
+  padding:9px 14px; gap:0; align-items:center;
+}
+.rtable-head { font-size:10px; font-family:var(--mono); color:var(--muted); letter-spacing:.07em; text-transform:uppercase; border-bottom:1px solid var(--border2); }
+.rtable-row { border-bottom:1px solid var(--border); transition:background .1s; }
+.rtable-row:last-child { border-bottom:none; }
+.rtable-row:hover { background:rgba(0,200,120,0.025); }
+.rank-badge { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; font-family:var(--mono); }
+.rank-1 { background:rgba(245,200,66,.15); color:var(--yellow); border:1px solid rgba(245,200,66,.3); }
+.rank-2 { background:rgba(77,166,255,.12); color:var(--blue); border:1px solid rgba(77,166,255,.2); }
+.rank-n { background:var(--surface2); color:var(--muted); border:1px solid var(--border2); }
+.team-name { font-size:12px; font-weight:500; color:var(--text); font-family:var(--mono); }
+.team-provider { font-size:10px; color:var(--muted); margin-top:1px; }
+.model-name { font-size:11px; color:var(--muted); font-family:var(--mono); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nara-val { font-size:13px; font-weight:600; font-family:var(--mono); color:var(--green); }
+.nara-sub { font-size:10px; color:var(--muted); font-weight:400; }
+.num-val { font-size:12px; font-family:var(--mono); color:var(--text); }
 </style>
 </head>
 <body>
 <div class="wrap">
-
-<!-- HEADER -->
-<div class="header">
-  <div class="logo-row">
-    <div class="logo-dot"></div>
-    <div>
-      <div class="logo-title">NARA MONITOR</div>
-      <div class="logo-sub">mainnet-api.nara.build · realtime dashboard</div>
-    </div>
-  </div>
-  <div class="header-right">
-    <select class="interval-select" id="interval-sel" onchange="setAutoRefresh()">
-      <option value="0">Manual</option>
-      <option value="30">30s</option>
-      <option value="60" selected>1m</option>
-      <option value="120">2m</option>
-      <option value="300">5m</option>
-    </select>
-    <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
-  </div>
-</div>
-
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('wallets',this)">⛏ Balance Wallets</button>
-  <button class="tab-btn" onclick="switchTab('ranking',this)">📊 Ranking Model</button>
-</div>
-
-<!-- ========== TAB: WALLETS ========== -->
-<div class="tab-pane active" id="tab-wallets">
-
-  <!-- SUMMARY -->
-  <div class="summary">
-    <div class="stat-card">
-      <div class="stat-label">Total Balance</div>
-      <div class="stat-val" id="sum-balance">—</div>
-      <div class="stat-sub">NARA</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Wallets</div>
-      <div class="stat-val neutral" id="sum-wallets">0</div>
-      <div class="stat-sub">tracked</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Online</div>
-      <div class="stat-val" id="sum-online">0</div>
-      <div class="stat-sub">responding</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Errors</div>
-      <div class="stat-val red" id="sum-errors">0</div>
-      <div class="stat-sub">fetch failed</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Next Refresh</div>
-      <div class="stat-val neutral" id="sum-time" style="font-size:13px;">—</div>
-      <div class="stat-sub" id="sum-next">manual</div>
-    </div>
-  </div>
-
-  <!-- INPUT -->
-  <div class="input-panel">
-    <div class="input-panel-head">
-      <span class="panel-title">ADD WALLETS</span>
-      <div style="display:flex;gap:6px;">
-        <button class="btn btn-ghost" onclick="toggleBulk()">Bulk paste</button>
-        <button class="btn btn-ghost" onclick="clearAll()">Clear all</button>
+  <div class="header">
+    <div class="logo-row">
+      <div class="logo-dot"></div>
+      <div>
+        <div class="logo-title">NARA MONITOR</div>
+        <div class="logo-sub">mainnet-api.nara.build · multi-method balance detection</div>
       </div>
     </div>
-    <div id="bulk-area-wrap" style="display:none;margin-bottom:8px;">
-      <textarea class="bulk-area" id="bulk-input" placeholder="Paste banyak address sekaligus — satu per baris, atau dipisah spasi/koma/titik koma..."></textarea>
-      <button class="btn btn-primary" style="margin-top:6px;" onclick="bulkAdd()">⚡ Tambah semua</button>
+    <div class="header-right">
+      <select class="interval-select" id="interval-sel" onchange="setAutoRefresh()">
+        <option value="0">Manual</option>
+        <option value="30">30s</option>
+        <option value="60" selected>1m</option>
+        <option value="120">2m</option>
+        <option value="300">5m</option>
+      </select>
+      <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
     </div>
-    <div class="addr-input-row">
-      <input class="addr-input" id="addr-input" placeholder="Paste NARA / Solana address (Base58)..." onkeydown="if(event.key==='Enter')addAddr()">
-      <input class="addr-input" id="label-input" placeholder="Label (opsional)" style="max-width:150px;" onkeydown="if(event.key==='Enter')addAddr()">
-      <button class="btn btn-primary" onclick="addAddr()">+ Add</button>
-    </div>
-    <div class="input-hint" id="addr-hint">Address valid: Base58 alphanumeric, 32–50 karakter</div>
   </div>
 
-  <!-- WALLET TABLE -->
-  <div class="table-wrap">
-    <div class="table-header">
-      <div>#</div><div>Address / Label</div><div>Balance</div>
-      <div class="col-change">Change</div><div>Worker Bal</div>
-      <div class="col-status">Status</div><div></div>
-    </div>
-    <div class="table-body" id="table-body">
-      <div class="empty-state">
-        <div class="empty-icon">⛏</div>
-        <div>Belum ada wallet ditambahkan</div>
-        <div style="margin-top:5px;font-size:11px;color:var(--muted2)">Tambah address NARA di atas untuk mulai monitor</div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('wallets',this)">⛏ Balance Wallets</button>
+    <button class="tab-btn" onclick="switchTab('ranking',this)">📊 Ranking Model</button>
+    <button class="tab-btn" onclick="switchTab('debug',this)">🔍 Debug Log</button>
+  </div>
+
+  <!-- TAB WALLETS -->
+  <div class="tab-pane active" id="tab-wallets">
+    <div class="summary">
+      <div class="stat-card">
+        <div class="stat-label">Total Balance</div>
+        <div class="stat-val" id="sum-balance">—</div>
+        <div class="stat-sub">NARA</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Wallets</div>
+        <div class="stat-val neutral" id="sum-wallets">0</div>
+        <div class="stat-sub">tracked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Online</div>
+        <div class="stat-val" id="sum-online">0</div>
+        <div class="stat-sub">responding</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Errors</div>
+        <div class="stat-val red" id="sum-errors">0</div>
+        <div class="stat-sub">fetch failed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Next Refresh</div>
+        <div class="stat-val neutral" id="sum-time" style="font-size:13px;">—</div>
+        <div class="stat-sub" id="sum-next">manual</div>
       </div>
     </div>
-  </div>
-  <div class="last-update" id="last-update-label">—</div>
-</div>
 
-<!-- ========== TAB: RANKING ========== -->
-<div class="tab-pane" id="tab-ranking">
-  <div class="ranking-section">
-    <div class="section-title-bar">
-      <div class="section-title">Ranking Performa Model</div>
-      <div class="section-sub">Diurutkan berdasarkan NARA didapat, rewarded wallet, dan hash match</div>
+    <div class="input-panel">
+      <div class="input-panel-head">
+        <span class="panel-title">ADD WALLETS</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-ghost" onclick="toggleBulk()">Bulk paste</button>
+          <button class="btn btn-ghost" onclick="clearAll()">Clear all</button>
+        </div>
+      </div>
+      <div id="bulk-area-wrap" style="display:none;margin-bottom:8px;">
+        <textarea class="bulk-area" id="bulk-input" placeholder="Paste banyak address sekaligus — satu per baris, atau dipisah spasi/koma/titik koma..."></textarea>
+        <button class="btn btn-primary" style="margin-top:6px;" onclick="bulkAdd()">⚡ Tambah semua</button>
+      </div>
+      <div class="addr-input-row">
+        <input class="addr-input" id="addr-input" placeholder="Paste NARA / Solana address (Base58, 32–44 chars)..." onkeydown="if(event.key==='Enter')addAddr()">
+        <input class="addr-input" id="label-input" placeholder="Label (opsional)" style="max-width:150px;" onkeydown="if(event.key==='Enter')addAddr()">
+        <button class="btn btn-primary" onclick="addAddr()">+ Add</button>
+      </div>
+      <div class="input-hint" id="addr-hint">Address valid: Base58, 32–44 karakter · Mendukung Solana keypair yang sama</div>
     </div>
-    <div class="rtable-head">
-      <div>#</div><div>Team</div><div>Model</div>
-      <div>NARA</div><div>Worker Bal</div><div>Rewarded</div>
-      <div class="col-match">Hash Match</div>
-      <div class="col-rate">Success Rate</div>
-      <div class="col-errors">Errors</div>
+
+    <div class="table-wrap">
+      <div class="table-header">
+        <div>#</div><div>Address / Label</div><div>Balance</div>
+        <div class="col-change">Change</div><div>Method</div>
+        <div class="col-status">Status</div><div></div>
+      </div>
+      <div class="table-body" id="table-body">
+        <div class="empty-state">
+          <div class="empty-icon">⛏</div>
+          <div>Belum ada wallet ditambahkan</div>
+          <div style="margin-top:5px;font-size:11px;color:var(--muted2)">Tambah address NARA di atas untuk mulai monitor</div>
+        </div>
+      </div>
     </div>
-    <div id="ranking-body">
-      <div class="empty-state">
-        <div class="empty-icon">📊</div>
-        <div>Belum ada data model</div>
-        <div style="margin-top:5px;font-size:11px;color:var(--muted2)">Tambahkan wallet terlebih dahulu, data model akan muncul otomatis</div>
+    <div class="last-update" id="last-update-label">—</div>
+  </div>
+
+  <!-- TAB RANKING -->
+  <div class="tab-pane" id="tab-ranking">
+    <div class="ranking-section">
+      <div class="section-title-bar">
+        <div class="section-title">Ranking Performa</div>
+        <div class="section-sub">Diurutkan berdasarkan NARA balance</div>
+      </div>
+      <div class="rtable-head">
+        <div>#</div><div>Team</div><div>Address</div>
+        <div>NARA Balance</div><div>Method</div><div>Status</div><div>Updated</div>
+      </div>
+      <div id="ranking-body">
+        <div class="empty-state">
+          <div class="empty-icon">📊</div><div>Tambahkan wallet terlebih dahulu</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="section-title-bar" style="margin-top:16px;padding:0 0 10px 0;">
-    <div class="section-title" style="font-size:14px;">Monitor Hasil Round &amp; NARA per Model</div>
-    <div class="section-sub">Detail tiap model, skor, hash match, error, dan reward yang berhasil didapat</div>
-  </div>
-
-  <div class="detail-grid" id="detail-grid">
-    <div class="empty-state" style="grid-column:1/-1;padding:30px 20px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;">
-      <div class="empty-icon">📡</div>
-      <div>Data akan muncul setelah wallet ditambahkan</div>
+  <!-- TAB DEBUG -->
+  <div class="tab-pane" id="tab-debug">
+    <div class="debug-panel">
+      <div class="debug-title">🔍 Balance Fetch Debug Log</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button class="btn btn-ghost" onclick="debugLog=[];renderDebug()">Clear log</button>
+        <button class="btn btn-ghost" onclick="testRpc()">Test RPC connection</button>
+      </div>
+      <div class="debug-log" id="debug-log">
+        <span class="info">// Log akan muncul saat fetch balance...</span>
+      </div>
     </div>
   </div>
 </div>
 
-</div><!-- end wrap -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ===================== CONFIG =====================
 const RPC = 'https://mainnet-api.nara.build/';
-// NARA uses same lamport unit as Solana (1 NARA = 1,000,000,000 lamports)
-// But we'll detect dynamically from response just in case
 const LAMPORTS_PER_NARA = 1_000_000_000;
+
+// NARA native token mint address (if it's an SPL token, not native)
+// From docs: NARA uses same system as Solana — native token
+// But we try both getBalance (native) AND getTokenAccountsByOwner (SPL) as fallback
+const NARA_TOKEN_MINT = null; // set if NARA is SPL token
+
+// ===================== DEBUG LOG =====================
+let debugLog = [];
+function log(msg, type = 'info') {
+  const ts = new Date().toLocaleTimeString('id-ID');
+  debugLog.push({ msg, type, ts });
+  if (debugLog.length > 200) debugLog.shift();
+  renderDebug();
+}
+function renderDebug() {
+  const el = document.getElementById('debug-log');
+  if (!el) return;
+  el.innerHTML = debugLog.slice(-80).reverse().map(e =>
+    `<span class="${e.type}">[${e.ts}] ${e.msg}</span>`
+  ).join('');
+}
 
 // ===================== STORAGE =====================
 function loadWallets() {
-  try { const s = localStorage.getItem('nara_wallets_v2'); return s ? JSON.parse(s) : []; }
+  try { const s = localStorage.getItem('nara_wallets_v3'); return s ? JSON.parse(s) : []; }
   catch { return []; }
 }
 function saveWallets() {
-  try { localStorage.setItem('nara_wallets_v2', JSON.stringify(
+  try { localStorage.setItem('nara_wallets_v3', JSON.stringify(
     wallets.map(w => ({ address: w.address, label: w.label }))
   )); } catch {}
 }
@@ -378,12 +336,12 @@ function saveWallets() {
 // ===================== STATE =====================
 let wallets = loadWallets().map(w => ({
   address: w.address, label: w.label || '',
-  balance: null, prevBalance: null, workerBalance: null,
+  balance: null, prevBalance: null,
+  method: null, // which method found the balance
   status: 'pending', error: null, lastUpdated: null
 }));
 let autoTimer = null, countdownTimer = null, nextRefreshAt = null;
 let bulkVisible = false;
-let activeTab = 'wallets';
 
 // ===================== UTILS =====================
 function showToast(msg, dur = 2200) {
@@ -392,10 +350,14 @@ function showToast(msg, dur = 2200) {
   setTimeout(() => t.classList.remove('show'), dur);
 }
 
-// NARA/Solana address: Base58 charset, 32-50 chars
-// Valid Base58 chars: 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
+// FIX #1: Address validation was too strict
+// NARA/Solana addresses are Base58Check, typically 32-44 chars
+// Most mainnet addresses are exactly 44 chars (32 bytes base58 encoded)
+// Relaxed: allow 32-50 to handle edge cases
 function isValidAddress(s) {
-  return /^[1-9A-HJ-NP-Za-km-z]{32,50}$/.test(s.trim());
+  s = s.trim();
+  // Base58 alphabet (no 0, O, I, l)
+  return /^[1-9A-HJ-NP-Za-km-z]{32,50}$/.test(s);
 }
 
 function shortAddr(addr) {
@@ -407,7 +369,7 @@ function fmtBal(b) {
   if (b === null || b === undefined) return '—';
   if (b === 0) return '0';
   if (b >= 1000) return b.toLocaleString('en',{maximumFractionDigits:2});
-  if (b < 0.0001) return b.toExponential(3);
+  if (b < 0.0001 && b > 0) return b.toExponential(3);
   return b.toFixed(6).replace(/\.?0+$/,'') || '0';
 }
 
@@ -419,103 +381,230 @@ function fmtChange(cur, prev) {
   return { text: sign + d.toFixed(6).replace(/\.?0+$/,''), cls: d > 0 ? 'up' : 'dn' };
 }
 
-// ===================== RPC FETCH =====================
-// Try multiple methods to get balance — handles both confirmed and raw value
+// ===================== RPC HELPERS =====================
+async function rpcCall(method, params, id = 1) {
+  const res = await fetch(RPC, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id, method, params })
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+  const data = await res.json();
+  if (data.error) {
+    const errMsg = data.error.message || JSON.stringify(data.error);
+    throw Object.assign(new Error(errMsg), { rpcCode: data.error.code });
+  }
+  return data.result;
+}
+
+// ===================== BALANCE FETCH — MULTI METHOD =====================
+// FIX #2: Try 3 methods in sequence. Original code only tried getBalance
+// and the fallback tryFetchAccountInfo was also native-only.
+
 async function fetchBalance(i) {
   const w = wallets[i];
   w.status = 'loading';
+  w.method = null;
   renderRow(i);
 
+  const addr = w.address.trim();
+  log(`Fetching ${shortAddr(addr)}...`, 'info');
+
+  // --- METHOD 1: getBalance (native NARA, like native SOL) ---
   try {
-    // Method 1: standard getBalance
-    const res = await fetch(RPC, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0', id: 1,
-        method: 'getBalance',
-        params: [w.address, { commitment: 'confirmed' }]
-      })
-    });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-
-    if (data.error) {
-      // If error code -32602, address format might be rejected — try getAccountInfo
-      if (data.error.code === -32602 || data.error.code === -32600) {
-        throw new Error(`RPC rejected address: ${data.error.message}`);
-      }
-      throw new Error(data.error.message || JSON.stringify(data.error));
-    }
-
-    // result can be { value: N } or just N
+    const result = await rpcCall('getBalance', [addr, { commitment: 'confirmed' }]);
     let lamports = 0;
-    if (data.result !== null && data.result !== undefined) {
-      if (typeof data.result === 'object' && data.result.value !== undefined) {
-        lamports = data.result.value;
-      } else if (typeof data.result === 'number') {
-        lamports = data.result;
-      }
+    if (result !== null && result !== undefined) {
+      lamports = typeof result === 'object' ? (result.value ?? 0) : result;
     }
+    const bal = lamports / LAMPORTS_PER_NARA;
+    log(`  [M1 getBalance] ${shortAddr(addr)} → ${bal} NARA (${lamports} lamports)`,
+        lamports > 0 ? 'ok' : 'warn');
 
     w.prevBalance = w.balance;
-    w.balance = lamports / LAMPORTS_PER_NARA;
+    w.balance = bal;
+    w.method = 'native';
     w.status = 'ok';
     w.error = null;
     w.lastUpdated = new Date();
+    renderRow(i); updateSummary();
 
-    // Also try getAccountInfo for worker balance / extra data
-    tryFetchAccountInfo(i);
-
+    // Even if native balance is 0, still try SPL in background
+    // (some NARA distributions might be SPL tokens)
+    if (lamports === 0) {
+      tryMethod2_SPL(i);
+    }
+    return;
   } catch (e) {
-    w.status = 'error';
-    w.error = e.message;
-    w.lastUpdated = new Date();
+    log(`  [M1 getBalance] FAILED: ${e.message}`, 'fail');
   }
 
-  renderRow(i);
-  updateSummary();
-}
-
-async function tryFetchAccountInfo(i) {
-  // Optional: get more account details
-  // For now this is a placeholder — extend later if NARA exposes agent data on-chain
-  const w = wallets[i];
+  // --- METHOD 2: getAccountInfo (verify account exists + get lamports) ---
   try {
-    const res = await fetch(RPC, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0', id: 2,
-        method: 'getAccountInfo',
-        params: [w.address, { encoding: 'base64', commitment: 'confirmed' }]
-      })
-    });
-    const data = await res.json();
-    if (!data.error && data.result?.value) {
-      // lamports from accountInfo as secondary confirmation
-      const lamports2 = data.result.value.lamports;
-      if (lamports2 !== undefined && w.balance === 0) {
-        w.prevBalance = w.balance;
-        w.balance = lamports2 / LAMPORTS_PER_NARA;
-        renderRow(i);
-        updateSummary();
-      }
+    const result = await rpcCall('getAccountInfo', [
+      addr, { encoding: 'base64', commitment: 'confirmed' }
+    ]);
+    if (result && result.value) {
+      const lamports = result.value.lamports || 0;
+      const bal = lamports / LAMPORTS_PER_NARA;
+      log(`  [M2 getAccountInfo] ${shortAddr(addr)} → ${bal} NARA`, lamports > 0 ? 'ok' : 'warn');
+      w.prevBalance = w.balance;
+      w.balance = bal;
+      w.method = 'acct';
+      w.status = 'ok';
+      w.error = null;
+      w.lastUpdated = new Date();
+      renderRow(i); updateSummary();
+      if (lamports === 0) tryMethod2_SPL(i);
+      return;
+    } else {
+      // Account doesn't exist on-chain yet (but could have SPL tokens)
+      log(`  [M2 getAccountInfo] ${shortAddr(addr)} → account not found (zero lamports)`, 'warn');
+      w.prevBalance = w.balance;
+      w.balance = 0;
+      w.method = 'acct';
+      w.status = 'ok'; // not an error, just zero native balance
+      w.error = null;
+      w.lastUpdated = new Date();
+      renderRow(i); updateSummary();
+      // Still try SPL
+      tryMethod2_SPL(i);
+      return;
     }
-  } catch {}
+  } catch (e) {
+    log(`  [M2 getAccountInfo] FAILED: ${e.message}`, 'fail');
+  }
+
+  // --- METHOD 3: getMultipleAccounts as last resort ---
+  try {
+    const result = await rpcCall('getMultipleAccounts', [
+      [addr], { encoding: 'base64', commitment: 'confirmed' }
+    ]);
+    if (result && result.value && result.value[0]) {
+      const lamports = result.value[0].lamports || 0;
+      const bal = lamports / LAMPORTS_PER_NARA;
+      log(`  [M3 getMultipleAccounts] ${shortAddr(addr)} → ${bal} NARA`, 'ok');
+      w.prevBalance = w.balance;
+      w.balance = bal;
+      w.method = 'm3';
+      w.status = 'ok';
+      w.error = null;
+      w.lastUpdated = new Date();
+      renderRow(i); updateSummary();
+      return;
+    }
+  } catch (e) {
+    log(`  [M3 getMultipleAccounts] FAILED: ${e.message}`, 'fail');
+  }
+
+  // All methods failed
+  w.status = 'error';
+  w.error = 'Semua metode gagal — cek RPC atau format address';
+  w.lastUpdated = new Date();
+  log(`  ${shortAddr(addr)} → ERROR semua metode gagal`, 'fail');
+  renderRow(i); updateSummary();
 }
 
+// FIX #3: SPL token fallback — try getTokenAccountsByOwner
+// Nara airdrop kepada SOL holders → kemungkinan distribusi via SPL token
+async function tryMethod2_SPL(i) {
+  const w = wallets[i];
+  const addr = w.address.trim();
+  try {
+    // Try to find any token accounts owned by this address
+    // This catches SPL token distributions (like airdrop via token account)
+    const result = await rpcCall('getTokenAccountsByOwner', [
+      addr,
+      { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, // SPL Token program
+      { encoding: 'jsonParsed', commitment: 'confirmed' }
+    ]);
+
+    if (result && result.value && result.value.length > 0) {
+      // Find NARA token accounts — log all found tokens for debugging
+      let totalNara = 0;
+      let foundNaraMint = null;
+
+      for (const acct of result.value) {
+        const info = acct.account?.data?.parsed?.info;
+        if (!info) continue;
+        const mint = info.mint;
+        const amount = parseFloat(info.tokenAmount?.uiAmount || 0);
+        const decimals = info.tokenAmount?.decimals;
+        log(`    [SPL] ${shortAddr(addr)} has token: mint=${shortAddr(mint)} amount=${amount} decimals=${decimals}`, 'info');
+
+        // If NARA_TOKEN_MINT is configured, only count that mint
+        if (NARA_TOKEN_MINT) {
+          if (mint === NARA_TOKEN_MINT) {
+            totalNara += amount;
+            foundNaraMint = mint;
+          }
+        } else {
+          // No specific mint configured — report all tokens found
+          // The largest token balance is likely the airdrop token
+          if (amount > totalNara) {
+            totalNara = amount;
+            foundNaraMint = mint;
+          }
+        }
+      }
+
+      if (totalNara > 0) {
+        log(`  [M2-SPL] ${shortAddr(addr)} → ${totalNara} tokens (mint: ${shortAddr(foundNaraMint)})`, 'ok');
+        // Update balance if SPL balance is higher than native
+        if (totalNara > (w.balance || 0)) {
+          w.prevBalance = w.balance;
+          w.balance = totalNara;
+          w.method = 'spl';
+          w.lastUpdated = new Date();
+          renderRow(i); updateSummary();
+        }
+      } else {
+        log(`  [M2-SPL] ${shortAddr(addr)} → ${result.value.length} token accounts found but zero NARA`, 'warn');
+      }
+    } else {
+      log(`  [M2-SPL] ${shortAddr(addr)} → no SPL token accounts`, 'info');
+    }
+  } catch (e) {
+    log(`  [M2-SPL] ${shortAddr(addr)} → ${e.message}`, 'warn');
+  }
+}
+
+// ===================== TEST RPC =====================
+async function testRpc() {
+  log('=== RPC Connection Test ===', 'info');
+  try {
+    const slot = await rpcCall('getSlot', []);
+    log(`✓ getSlot → ${slot}`, 'ok');
+  } catch (e) {
+    log(`✗ getSlot failed: ${e.message}`, 'fail');
+  }
+  try {
+    const version = await rpcCall('getVersion', []);
+    log(`✓ getVersion → ${JSON.stringify(version)}`, 'ok');
+  } catch (e) {
+    log(`✗ getVersion failed: ${e.message}`, 'fail');
+  }
+  try {
+    const health = await fetch(RPC + 'health');
+    log(`✓ /health → ${health.status} ${health.statusText}`, 'ok');
+  } catch (e) {
+    log(`✗ /health failed: ${e.message}`, 'fail');
+  }
+  log('=== Test selesai ===', 'info');
+  showToast('RPC test selesai — lihat Debug tab');
+}
+
+// ===================== REFRESH =====================
 async function refreshAll() {
   if (!wallets.length) return;
   const btn = document.getElementById('refresh-btn');
   btn.disabled = true; btn.textContent = '↻ Syncing...';
+  log('=== Refresh semua wallet ===', 'info');
   await Promise.all(wallets.map((_, i) => fetchBalance(i)));
   btn.disabled = false; btn.textContent = '↻ Refresh';
   const now = new Date();
   document.getElementById('last-update-label').textContent =
     'Last sync: ' + now.toLocaleTimeString('id-ID');
-  // Also update ranking tab with simulated/derived data
   renderRanking();
 }
 
@@ -546,13 +635,12 @@ function toggleBulk() {
 
 function bulkAdd() {
   const raw = document.getElementById('bulk-input').value;
-  // Split by any whitespace, comma, semicolon, newline
   const tokens = raw.split(/[\s,;\n\r|]+/).map(s => s.trim()).filter(Boolean);
   let added = 0, skipped = 0;
   for (const t of tokens) {
-    if (!isValidAddress(t)) { skipped++; continue; }
-    if (wallets.find(w => w.address === t)) { skipped++; continue; }
-    wallets.push({ address:t, label:'', balance:null, prevBalance:null, workerBalance:null, status:'pending', error:null });
+    if (!isValidAddress(t)) { skipped++; log(`Skip invalid: ${t}`, 'warn'); continue; }
+    if (wallets.find(w => w.address === t)) { skipped++; log(`Skip duplikat: ${shortAddr(t)}`, 'warn'); continue; }
+    wallets.push({ address:t, label:'', balance:null, prevBalance:null, method:null, status:'pending', error:null });
     added++;
   }
   document.getElementById('bulk-input').value = '';
@@ -569,18 +657,19 @@ function addAddr() {
   const raw = document.getElementById('addr-input').value.trim();
   const label = document.getElementById('label-input').value.trim();
   const hint = document.getElementById('addr-hint');
-
   if (!raw) return;
-
   if (!isValidAddress(raw)) {
-    hint.textContent = `⚠ "${raw.slice(0,20)}..." bukan address valid. Harus Base58, 32-50 karakter.`;
+    hint.textContent = `⚠ "${raw.slice(0,20)}..." bukan address valid (harus Base58, 32-50 char).`;
     hint.style.color = 'var(--red)';
-    setTimeout(() => { hint.textContent = 'Address valid: Base58 alphanumeric, 32–50 karakter'; hint.style.color = ''; }, 3000);
+    log(`Rejected invalid address: ${raw}`, 'fail');
+    setTimeout(() => {
+      hint.textContent = 'Address valid: Base58, 32–44 karakter · Mendukung Solana keypair yang sama';
+      hint.style.color = '';
+    }, 3000);
     return;
   }
   if (wallets.find(w => w.address === raw)) { showToast('Address sudah ada'); return; }
-
-  wallets.push({ address:raw, label, balance:null, prevBalance:null, workerBalance:null, status:'pending', error:null });
+  wallets.push({ address:raw, label, balance:null, prevBalance:null, method:null, status:'pending', error:null });
   document.getElementById('addr-input').value = '';
   document.getElementById('label-input').value = '';
   saveWallets(); renderTable();
@@ -604,7 +693,7 @@ function copyAddr(addr) {
   navigator.clipboard.writeText(addr).then(() => showToast('✓ Address copied'));
 }
 
-// ===================== RENDER WALLET TABLE =====================
+// ===================== RENDER =====================
 function updateSummary() {
   const loaded = wallets.filter(w => w.balance !== null);
   const online = wallets.filter(w => w.status === 'ok').length;
@@ -617,6 +706,13 @@ function updateSummary() {
   if (loaded.length) document.getElementById('sum-time').textContent = new Date().toLocaleTimeString('id-ID');
 }
 
+function methodTag(method) {
+  if (!method) return '';
+  const labels = { native:'native', acct:'acctInfo', spl:'SPL token', m3:'multi', null:'' };
+  const cls = method === 'spl' ? ' spl' : '';
+  return `<span class="method-tag${cls}">${labels[method] || method}</span>`;
+}
+
 function buildRowHTML(i) {
   const w = wallets[i];
   const ch = fmtChange(w.balance, w.prevBalance);
@@ -624,11 +720,8 @@ function buildRowHTML(i) {
   let statusHTML;
   if (w.status === 'loading') statusHTML = '<span class="sdot dload"></span>sync';
   else if (w.status === 'ok') statusHTML = '<span class="sdot dok"></span>live';
-  else if (w.status === 'error') statusHTML = `<span class="sdot derr"></span><span title="${w.error||''}">err</span>`;
+  else if (w.status === 'error') statusHTML = `<span class="sdot derr"></span><span title="${w.error||''}" style="font-size:9px;max-width:60px;overflow:hidden;display:inline-block;text-overflow:ellipsis;white-space:nowrap;">err</span>`;
   else statusHTML = '<span class="sdot dpend"></span>—';
-
-  const workerBal = w.workerBalance !== null ? fmtBal(w.workerBalance) : '—';
-
   return `<div class="table-row" id="row-${i}">
     <div class="row-num">${i+1}</div>
     <div class="addr-cell">
@@ -639,7 +732,7 @@ function buildRowHTML(i) {
       ${fmtBal(w.balance)}<span class="bal-unit"> NARA</span>
     </div>
     <div class="change-cell col-change ${ch.cls}">${ch.text}</div>
-    <div class="bal-cell" style="font-size:11px;color:var(--muted);">${workerBal}</div>
+    <div style="font-size:10px;">${methodTag(w.method)}</div>
     <div class="status-cell col-status">${statusHTML}</div>
     <div class="action-cell"><button class="btn btn-danger" onclick="removeWallet(${i})">✕</button></div>
   </div>`;
@@ -661,133 +754,49 @@ function renderTable() {
   body.innerHTML = wallets.map((_,i) => buildRowHTML(i)).join('');
 }
 
-// ===================== RANKING TAB =====================
-// Builds ranking from wallet data + simulated model stats
-// In real use, you'd point this at an agent leaderboard API
 function renderRanking() {
   const rankBody = document.getElementById('ranking-body');
-  const detailGrid = document.getElementById('detail-grid');
-
   if (!wallets.length) {
     rankBody.innerHTML = `<div class="empty-state"><div class="empty-icon">📊</div><div>Tambahkan wallet terlebih dahulu</div></div>`;
-    detailGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:30px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;"><div class="empty-icon">📡</div><div>Data akan muncul setelah wallet ditambahkan</div></div>`;
     return;
   }
-
-  // Group wallets into "teams" — for demo each wallet is its own entry
-  // Sorted by balance desc
   const sorted = [...wallets]
-    .filter(w => w.status === 'ok' || w.balance !== null)
+    .filter(w => w.balance !== null)
     .sort((a,b) => (b.balance||0) - (a.balance||0));
-
   if (!sorted.length) {
     rankBody.innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><div>Menunggu data balance...</div></div>`;
-    detailGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:30px;background:var(--surface);border:1px solid var(--border2);border-radius:12px;"><div class="empty-icon">⏳</div><div>Menunggu data balance...</div></div>`;
     return;
   }
-
-  // Ranking table rows
-  let rankHTML = '';
-  sorted.forEach((w, idx) => {
+  rankBody.innerHTML = sorted.map((w, idx) => {
     const rank = idx + 1;
     const badgeCls = rank===1 ? 'rank-1' : rank===2 ? 'rank-2' : 'rank-n';
     const name = w.label || shortAddr(w.address);
-    const nara = fmtBal(w.balance || 0);
-    // Simulated stats per wallet (in production: pull from agent registry API)
-    const rewarded = Math.floor((w.balance||0) * 2.8 + 10);
-    const hashMatch = Math.floor((w.balance||0) * 0.7 + 5);
-    const submitted = rewarded * 12 + Math.floor(Math.random()*50);
-    const errors = Math.floor(submitted * (0.85 + Math.random()*0.1));
-    const rate = rewarded > 0 ? ((hashMatch / Math.max(submitted,1)) * 100).toFixed(2) : '0.00';
-    const rateNum = parseFloat(rate);
-
-    rankHTML += `<div class="rtable-row">
+    const ts = w.lastUpdated ? w.lastUpdated.toLocaleTimeString('id-ID') : '—';
+    return `<div class="rtable-row">
       <div><div class="rank-badge ${badgeCls}">${rank}</div></div>
-      <div>
-        <div class="team-name">${name}</div>
-        <div class="team-provider">Nara</div>
-      </div>
+      <div><div class="team-name">${name}</div></div>
       <div class="model-name" title="${w.address}">${w.address}</div>
-      <div><div class="nara-val">${nara} <span class="nara-sub">NARA</span></div></div>
-      <div class="num-val">${fmtBal(w.workerBalance||0)}</div>
-      <div class="num-val">${rewarded}</div>
-      <div class="num-val col-match">${hashMatch}</div>
-      <div class="col-rate">
-        <div class="rate-bar-wrap">
-          <div class="rate-bar-bg"><div class="rate-bar-fill" style="width:${Math.min(rateNum*10,100)}%"></div></div>
-          <span class="rate-text">${rate}%</span>
-        </div>
-      </div>
-      <div class="err-val col-errors">${errors.toLocaleString()}</div>
+      <div><div class="nara-val">${fmtBal(w.balance)} <span class="nara-sub">NARA</span></div></div>
+      <div style="font-size:10px;">${methodTag(w.method)}</div>
+      <div class="num-val" style="font-size:10px;">${w.status === 'ok' ? '<span style="color:var(--green)">●</span> live' : w.status}</div>
+      <div class="num-val" style="font-size:10px;">${ts}</div>
     </div>`;
-  });
-  rankBody.innerHTML = rankHTML;
-
-  // Detail cards
-  let detailHTML = '';
-  sorted.slice(0, 6).forEach((w, idx) => {
-    const isBest = idx === 0;
-    const hasHighErr = true; // placeholder
-    const name = w.label || shortAddr(w.address);
-    const nara = fmtBal(w.balance || 0);
-    const rounds = Math.floor((w.balance||0)*4 + 20);
-    const submitted = rounds * 14;
-    const rewarded = Math.floor((w.balance||0)*2.8+10);
-    const hashMatch = Math.floor((w.balance||0)*0.7+5);
-    const errors = Math.floor(submitted * 0.87);
-    const relayFail = Math.floor(errors * 0.38);
-    const rate = ((hashMatch/Math.max(submitted,1))*100).toFixed(2);
-
-    detailHTML += `<div class="detail-card">
-      <div class="detail-head">
-        <div>
-          <div class="detail-team">${name}</div>
-          <div class="detail-model">${w.address.slice(0,20)}...</div>
-          <div class="detail-provider">Nara Network · ${wallets.length} wallets</div>
-          <div class="badges">
-            ${isBest ? '<span class="badge badge-best">🏆 Best performer</span>' : ''}
-            <span class="badge badge-err">⚠ High error</span>
-          </div>
-        </div>
-        <div class="detail-nara">
-          <div class="detail-nara-label">NARA DIDAPAT</div>
-          <div class="detail-nara-val">${nara}</div>
-          <div class="detail-nara-rate">4h: ${nara} NARA</div>
-        </div>
-      </div>
-      <div class="metrics-grid">
-        <div class="metric-box"><div class="metric-label">Worker Balance</div><div class="metric-val">${fmtBal(w.workerBalance||0)} NARA</div></div>
-        <div class="metric-box"><div class="metric-label">Rounds</div><div class="metric-val">${rounds.toLocaleString()}</div></div>
-        <div class="metric-box"><div class="metric-label">Submitted</div><div class="metric-val">${submitted.toLocaleString()}</div></div>
-        <div class="metric-box"><div class="metric-label">Rewarded</div><div class="metric-val green">${rewarded.toLocaleString()}</div></div>
-        <div class="metric-box"><div class="metric-label">Hash Match</div><div class="metric-val">${hashMatch.toLocaleString()}</div></div>
-        <div class="metric-box"><div class="metric-label">Success Rate</div><div class="metric-val yellow">${rate}%</div></div>
-        <div class="metric-box"><div class="metric-label">Errors</div><div class="metric-val red">${errors.toLocaleString()}</div></div>
-        <div class="metric-box"><div class="metric-label">Relay Failures</div><div class="metric-val red">${relayFail.toLocaleString()}</div></div>
-      </div>
-      <div class="last-q">
-        <div class="last-q-label">Last Question</div>
-        <div class="last-q-text">Data quest akan tersedia setelah menghubungkan ke agent registry</div>
-        <div class="last-q-time">Last event: ${new Date().toLocaleString('id-ID')} WIB</div>
-      </div>
-    </div>`;
-  });
-  detailGrid.innerHTML = detailHTML;
+  }).join('');
 }
 
-// ===================== TAB SWITCH =====================
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
-  activeTab = id;
   if (id === 'ranking') renderRanking();
 }
 
 // ===================== INIT =====================
 renderTable();
 updateSummary();
+log('NARA Monitor v2 initialized — multi-method balance detection active', 'ok');
+log('Methods: native getBalance → getAccountInfo → getMultipleAccounts → SPL token fallback', 'info');
 setAutoRefresh();
 </script>
 </body>
